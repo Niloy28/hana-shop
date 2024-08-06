@@ -1,5 +1,29 @@
 // User Imports
 import NavBar from "@/components/navbar/NavBar";
+import { LinkData } from "@/types/link-data";
+
+const homePageLinks: LinkData[] = [
+	{
+		name: "About",
+		href: "/about",
+	},
+	{
+		name: "Bouquets",
+		href: "/products/bouquets",
+	},
+	{
+		name: "Blog",
+		href: "/blog",
+	},
+	{
+		name: "Contact",
+		href: "/contact",
+	},
+	{
+		name: "Sign In",
+		href: "/sign-in",
+	},
+];
 
 export default function HomeLayout({
 	children,
@@ -9,7 +33,7 @@ export default function HomeLayout({
 	return (
 		<>
 			<header>
-				<NavBar />
+				<NavBar links={homePageLinks} />
 			</header>
 			{children}
 		</>

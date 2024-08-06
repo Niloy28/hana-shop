@@ -1,23 +1,29 @@
 import React from "react";
-import Logo from "@/../public/Design.png";
-import Image from "next/image";
-import NavBarLink from "./NavBarLink";
+import Link from "next/link";
 
-const NavBar = () => {
+import NavBarLink from "./NavBarLink";
+import Logo from "../Logo";
+import { LinkData } from "@/types/link-data";
+
+const NavBar = ({
+	links,
+}: Readonly<{
+	links: LinkData[];
+}>) => {
 	return (
 		<nav className="mx-4 my-2 px-4 py-2 rounded-full sticky text-white bg-slate-900">
-			<ul className="flex justify-evenly uppercase">
-				<NavBarLink>
-					<Image src={Logo} alt="Shop logo" width={40} height={40} /> Hana Shop
-					(花屋)
-				</NavBarLink>
-				<NavBarLink>Home</NavBarLink>
-				<NavBarLink>About</NavBarLink>
-				<NavBarLink>Bouquets</NavBarLink>
-				<NavBarLink>Blog</NavBarLink>
-				<NavBarLink>Contact</NavBarLink>
-				<NavBarLink>Sign In</NavBarLink>
-			</ul>
+			<div className="w-full flex flex-1 items-center justify-between">
+				<Link className="px-4 ml-4" href="/home">
+					<Logo />
+				</Link>
+				<ul className="hidden md:flex md:text-sm justify-evenly uppercase">
+					{links.map((link) => (
+						<NavBarLink key={link.name} href={link.href}>
+							{link.name}
+						</NavBarLink>
+					))}
+				</ul>
+			</div>
 		</nav>
 	);
 };
