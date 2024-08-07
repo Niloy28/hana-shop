@@ -1,9 +1,10 @@
 import React from "react";
 import Link from "next/link";
 
-import NavBarLink from "./NavBarLink";
 import Logo from "../Logo";
 import { LinkData } from "@/types/link-data";
+import MobileNavigation from "./MobileNavigation";
+import DesktopNavigation from "./DesktopNavigation";
 
 const NavBar = ({
 	links,
@@ -16,13 +17,9 @@ const NavBar = ({
 				<Link className="px-4 ml-4" href="/home">
 					<Logo />
 				</Link>
-				<ul className="hidden md:flex md:text-sm justify-evenly uppercase">
-					{links.map((link) => (
-						<NavBarLink key={link.name} href={link.href}>
-							{link.name}
-						</NavBarLink>
-					))}
-				</ul>
+				<DesktopNavigation links={links} />
+
+				<MobileNavigation links={links} />
 			</div>
 		</nav>
 	);
