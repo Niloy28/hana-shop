@@ -5,6 +5,7 @@ import Logo from "../Logo";
 import { LinkData } from "@/types/link-data";
 import MobileNavigation from "./MobileNavigation";
 import DesktopNavigation from "./DesktopNavigation";
+import AccountDropdown from "./AccountDropdown";
 
 const NavBar = ({
 	links,
@@ -17,9 +18,12 @@ const NavBar = ({
 				<Link className="px-4 ml-4" href="/home">
 					<Logo />
 				</Link>
-				<DesktopNavigation links={links} />
+				<div className="flex space-2">
+					<DesktopNavigation links={links} />
 
-				<MobileNavigation links={links} />
+					<MobileNavigation links={links} />
+					<AccountDropdown />
+				</div>
 			</div>
 		</nav>
 	);

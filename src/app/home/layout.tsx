@@ -19,10 +19,6 @@ const homePageLinks: LinkData[] = [
 		name: "Contact",
 		href: "/contact",
 	},
-	{
-		name: "Sign In",
-		href: "/sign-in",
-	},
 ];
 
 export default function HomeLayout({
