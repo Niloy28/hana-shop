@@ -1,3 +1,5 @@
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+
 // User Imports
 import NavBar from "@/components/navbar/NavBar";
 import { LinkData } from "@/types/link-data";
@@ -21,15 +23,19 @@ const homePageLinks: LinkData[] = [
 	},
 ];
 
-export default function HomeLayout({
+export default async function HomeLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	const { getUser } = getKindeServerSession();
+
+	const user = await getUser();
+
 	return (
 		<>
 			<header>
-				<NavBar links={homePageLinks} />
+				<NavBar links={homePageLinks} authUser={user} />
 			</header>
 			{children}
 		</>
