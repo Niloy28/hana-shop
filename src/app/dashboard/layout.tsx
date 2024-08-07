@@ -33,7 +33,7 @@ const DashboardLayout = async ({
 
 	const user = await getUser();
 
-	if (!user) {
+	if (!user || !process.env.ADMIN_EMAIL?.split(",").includes(user.email!)) {
 		redirect("/home");
 	}
 

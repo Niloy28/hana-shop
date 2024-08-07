@@ -20,7 +20,11 @@ import {
 	ToggleLeftIcon,
 	ToggleRightIcon,
 } from "lucide-react";
-import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs";
+import {
+	LoginLink,
+	LogoutLink,
+	RegisterLink,
+} from "@kinde-oss/kinde-auth-nextjs";
 
 const AccountDropdown = ({
 	authUser,
@@ -54,8 +58,8 @@ const AccountDropdown = ({
 					</>
 				)}
 				{authUser && (
-					<DropdownMenuItem className="hover:cursor-pointer">
-						Logout
+					<DropdownMenuItem className="w-full">
+						<LogoutLink>Logout</LogoutLink>
 					</DropdownMenuItem>
 				)}
 				<DropdownMenuSeparator />
