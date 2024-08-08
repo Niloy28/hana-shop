@@ -43,7 +43,7 @@ const DashboardLayout = async ({
 			<header>
 				<NavBar links={dashboardLinks} authUser={user} />
 			</header>
-			<div className="flex flex-col w-full container">
+			<div className="mx-16 px-8 my-10">
 				<main>{children}</main>
 			</div>
 		</>
