@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
+// User Imports
 import LogoImage from "@/../public/Design.png";
 
 const Logo = () => {

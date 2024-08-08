@@ -2,6 +2,7 @@ import React from "react";
 import { redirect } from "next/navigation";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
+// User Imports
 import { LinkData } from "@/types/link-data";
 import NavBar from "@/components/navbar/NavBar";
 

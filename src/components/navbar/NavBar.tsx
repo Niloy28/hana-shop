@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 
+// User Imports
 import Logo from "../Logo";
 import { LinkData } from "@/types/link-data";
 import MobileNavigation from "./MobileNavigation";
