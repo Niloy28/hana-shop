@@ -3,6 +3,7 @@ import { DollarSign, PartyPopper, ShoppingBag, User2 } from "lucide-react";
 import DashboardGridCell from "@/components/dashboard/DashboardGridCell";
 import DashboardTransactionSummary from "@/components/dashboard/DashboardTransactionSummary";
 import DashboardSalesSummary from "@/components/dashboard/DashboardSalesSummary";
+import { toCurrencyString } from "@/lib/utils";
 
 const DashboardPage = () => {
 	return (
@@ -10,7 +11,10 @@ const DashboardPage = () => {
 			<div className="grid md:grid-cols-2 md:gap-8 lg:grid-cols-4 lg:gap-4">
 				<DashboardGridCell
 					title="Total Revenue"
-					content={{ head: "$100,000", body: "Based on 100 Charges" }}
+					content={{
+						head: toCurrencyString(1000),
+						body: "Based on 100 Charges",
+					}}
 					icon={<DollarSign />}
 					iconClassName="text-green-500"
 				/>

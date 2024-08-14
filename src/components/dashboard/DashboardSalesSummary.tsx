@@ -9,8 +9,18 @@ const DashboardSalesSummary = () => {
 				<CardTitle>Recent Sales</CardTitle>
 			</CardHeader>
 			<CardContent className="flex flex-col items-center gap-2">
-				<DashboardSalesRecord />
-				<DashboardSalesRecord />
+				<DashboardSalesRecord
+					avatar={{ profile: "", fallback: "FI" }}
+					customerName="Niloy"
+					customerMail="test@test.com"
+					amount={499.99}
+				/>
+				<DashboardSalesRecord
+					avatar={{ profile: "", fallback: "SS" }}
+					customerName="Sakib"
+					customerMail="test@test.com"
+					amount={299.99}
+				/>
 			</CardContent>
 		</Card>
 	);
