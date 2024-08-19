@@ -17,7 +17,7 @@ const NavBar = ({
 	authUser: KindeUser | null;
 }>) => {
 	return (
-		<nav className="mx-4 my-2 px-4 py-2 rounded-full sticky text-white bg-slate-900">
+		<nav className="mx-4 my-2 px-4 py-2 rounded-full sticky outline-1 outline">
 			<div className="w-full flex flex-1 items-center justify-between">
 				<Link className="px-4 ml-4" href="/home">
 					<Logo />
