@@ -1,14 +1,12 @@
-import React from "react";
-
-import { Button } from "../ui/button";
 import { CircleUser } from "lucide-react";
+import { Button } from "../ui/button";
 
 const Avatar = () => {
-	return (
-		<Button className="w-10 h-10 rounded-full" variant="secondary" size="icon">
-			<CircleUser className="w-5 h-5 " />
-		</Button>
-	);
+  return (
+    <Button className="h-10 w-10 rounded-full" variant="secondary" size="icon">
+      <CircleUser className="h-5 w-5" />
+    </Button>
+  );
 };
 
 export default Avatar;

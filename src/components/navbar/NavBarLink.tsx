@@ -2,23 +2,23 @@ import Link from "next/link";
 import React from "react";
 
 const NavBarLink = ({
-	children,
-	href,
-	className,
+  children,
+  href,
+  className,
 }: Readonly<{
-	children: React.ReactNode;
-	href: string;
-	className?: string;
+  children: React.ReactNode;
+  href: string;
+  className?: string;
 }>) => {
-	return (
-		<li
-			className={`${className} flex items-center text-lg justify-center px-1 lg:px-4 py-2 mx-1 lg:mx-4 rounded-lg cursor-pointer`}
-		>
-			<Link href={href} className="w-full text-center">
-				{children}
-			</Link>
-		</li>
-	);
+  return (
+    <li
+      className={`${className} mx-1 flex cursor-pointer items-center justify-center rounded-lg px-1 py-2 text-lg lg:mx-4 lg:px-4`}
+    >
+      <Link href={href} className="w-full text-center">
+        {children}
+      </Link>
+    </li>
+  );
 };
 
 export default NavBarLink;

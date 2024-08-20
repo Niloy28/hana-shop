@@ -5,39 +5,39 @@ import NavBar from "@/components/navbar/NavBar";
 import { LinkData } from "@/types/link-data";
 
 const homePageLinks: LinkData[] = [
-	{
-		name: "About",
-		href: "/about",
-	},
-	{
-		name: "Bouquets",
-		href: "/products/bouquets",
-	},
-	{
-		name: "Blog",
-		href: "/blog",
-	},
-	{
-		name: "Contact",
-		href: "/contact",
-	},
+  {
+    name: "About",
+    href: "/about",
+  },
+  {
+    name: "Bouquets",
+    href: "/products/bouquets",
+  },
+  {
+    name: "Blog",
+    href: "/blog",
+  },
+  {
+    name: "Contact",
+    href: "/contact",
+  },
 ];
 
 export default async function HomeLayout({
-	children,
+  children,
 }: Readonly<{
-	children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-	const { getUser } = getKindeServerSession();
+  const { getUser } = getKindeServerSession();
 
-	const user = await getUser();
+  const user = await getUser();
 
-	return (
-		<>
-			<header>
-				<NavBar links={homePageLinks} authUser={user} />
-			</header>
-			{children}
-		</>
-	);
+  return (
+    <>
+      <header>
+        <NavBar links={homePageLinks} authUser={user} />
+      </header>
+      {children}
+    </>
+  );
 }
