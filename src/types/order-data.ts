@@ -1,3 +1,3 @@
 export type OrderType = "Sale" | "Refund" | "Replace";
 
-export type OrderStatus = "Pending" | "Processing" | "Done";
+export const OrderStatus = ["Pending", "Processing", "Done"] as const;

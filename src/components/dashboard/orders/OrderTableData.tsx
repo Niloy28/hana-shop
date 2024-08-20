@@ -13,7 +13,7 @@ const OrderTableData = ({
   customerName: string;
   customerMail: string;
   type: OrderType;
-  status: OrderStatus;
+  status: typeof OrderStatus;
   date: Date;
   amount: number;
 }>) => {
