@@ -4,6 +4,7 @@ import React from "react";
 
 // User Imports
 import NavBar from "@/components/navbar/NavBar";
+import { verifyAdmin } from "@/lib/utils";
 import { LinkData } from "@/types/link-data";
 
 const dashboardLinks: LinkData[] = [
@@ -34,7 +35,7 @@ const DashboardLayout = async ({
 
   const user = await getUser();
 
-  if (!user || !process.env.ADMIN_EMAIL?.split(",").includes(user.email!)) {
+  if (!user || !verifyAdmin(user.email)) {
     redirect("/home");
   }
 
