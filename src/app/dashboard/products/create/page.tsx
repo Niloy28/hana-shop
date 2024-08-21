@@ -1,3 +1,5 @@
+"use client";
+
 import CreateProductFieldWrapper from "@/components/dashboard/products/create/CreateProductFieldWrapper";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,6 +20,7 @@ import {
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
+import { UploadDropzone } from "@/lib/uploadthing";
 import { OrderStatus } from "@/types/order-data";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
@@ -85,6 +88,11 @@ const CreateProductPage = () => {
                   ))}
                 </SelectContent>
               </Select>
+            </CreateProductFieldWrapper>
+
+            <CreateProductFieldWrapper>
+              <Label>Images</Label>
+              <UploadDropzone endpoint="imageUploader" />
             </CreateProductFieldWrapper>
           </div>
         </CardContent>
