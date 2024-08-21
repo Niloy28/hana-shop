@@ -1,3 +1,4 @@
+import { env } from "@/env/server";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -13,5 +14,5 @@ export const toCurrencyString = (currency: number) => {
 };
 
 export const verifyAdmin = (email: string | null) => {
-  return email && process.env.ADMIN_EMAIL?.split(",").includes(email);
+  return email && env.ADMIN_EMAIL.split(",").includes(email);
 };

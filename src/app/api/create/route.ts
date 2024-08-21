@@ -1,3 +1,4 @@
+import { env } from "@/env/client";
 import prisma from "@/lib/db";
 import { verifyAdmin } from "@/lib/utils";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
@@ -32,8 +33,8 @@ export const GET = async () => {
 
   const baseUrl =
     process.env.NODE_ENV === "production"
-      ? process.env.PROD_BASE_URL
-      : process.env.DEV_BASE_URL;
+      ? env.NEXT_PUBLIC_PROD_BASE_URL
+      : env.NEXT_PUBLIC_DEV_BASE_URL;
 
   return NextResponse.redirect(
     `${baseUrl}${verifyAdmin(user.email) ? "/dashboard" : ""}`,
