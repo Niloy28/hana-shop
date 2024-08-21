@@ -14,6 +14,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { ProductStatus } from "@prisma/client";
 import { PlusCircle, User2Icon, UserIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -52,7 +53,7 @@ const ProductsPage = () => {
                 key="Macbook"
                 image={<UserIcon />}
                 name="Macbook"
-                status="Active"
+                status={ProductStatus.Active}
                 date={new Date()}
                 price={2999}
               />
@@ -60,7 +61,7 @@ const ProductsPage = () => {
                 key="Nike Air"
                 image={<User2Icon />}
                 name="Nike Air"
-                status="Active"
+                status={ProductStatus.Out_Of_Stock}
                 date={new Date()}
                 price={299}
               />

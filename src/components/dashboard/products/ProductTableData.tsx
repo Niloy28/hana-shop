@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { toCurrencyString } from "@/lib/utils";
-import { ProductStatus } from "@/types/product-data";
+import { ProductStatus } from "@prisma/client";
 import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import React from "react";
 
@@ -30,7 +30,7 @@ const ProductTableData = ({
     <TableRow>
       <TableCell>{image}</TableCell>
       <TableCell className="capitalize">{name}</TableCell>
-      <TableCell>{status}</TableCell>
+      <TableCell>{status.toString().split("_").join(" ")}</TableCell>
       <TableCell>{toCurrencyString(price)}</TableCell>
       <TableCell>{date.toLocaleDateString()}</TableCell>
       <TableCell className="text-right">
