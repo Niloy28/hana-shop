@@ -1,5 +1,5 @@
 import { TableCell, TableRow } from "@/components/ui/table";
-import { toCurrencyString } from "@/lib/utils";
+import { enumToString, toCurrencyString } from "@/lib/utils";
 import { OrderStatus, OrderType } from "@/types/order-data";
 
 const OrderTableData = ({
@@ -13,7 +13,7 @@ const OrderTableData = ({
   customerName: string;
   customerMail: string;
   type: OrderType;
-  status: typeof OrderStatus;
+  status: OrderStatus;
   date: Date;
   amount: number;
 }>) => {
@@ -26,7 +26,7 @@ const OrderTableData = ({
         </p>
       </TableCell>
       <TableCell>{type}</TableCell>
-      <TableCell>{status}</TableCell>
+      <TableCell>{enumToString(status)}</TableCell>
       <TableCell>{date.toLocaleDateString()}</TableCell>
       <TableCell className="text-right">{toCurrencyString(amount)}</TableCell>
     </TableRow>

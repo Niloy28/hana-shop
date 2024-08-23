@@ -13,6 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { OrderStatus } from "@/types/order-data";
 
 const OrdersPage = () => {
   return (
@@ -39,7 +40,7 @@ const OrdersPage = () => {
               customerName="Niloy"
               customerMail="test@test.com"
               type="Sale"
-              status="Done"
+              status={OrderStatus.Done}
               date={new Date()}
               amount={2500}
             />
@@ -47,7 +48,7 @@ const OrdersPage = () => {
               customerName="Prithu"
               customerMail="test@test.com"
               type="Sale"
-              status="Done"
+              status={OrderStatus.Pending}
               date={new Date()}
               amount={1200}
             />
