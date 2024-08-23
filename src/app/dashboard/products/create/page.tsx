@@ -4,6 +4,7 @@ import { createProduct } from "@/app/actions";
 import { SelectConform } from "@/components/conform/SelectConform";
 import CreateProductFieldWrapper from "@/components/dashboard/products/create/CreateProductFieldWrapper";
 import ImageUploadDisplay from "@/components/dashboard/products/create/ImageUploadDisplay";
+import SubmitButton from "@/components/SubmitButton";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -184,7 +185,7 @@ const CreateProductPage = () => {
           </div>
         </CardContent>
         <CardFooter>
-          <Button type="submit">Create Product</Button>
+          <SubmitButton>Create Product</SubmitButton>
         </CardFooter>
       </Card>
     </form>
