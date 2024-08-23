@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { env } from "@/env/client";
 import prisma from "@/lib/db";
 import { verifyAdmin } from "@/lib/utils";
