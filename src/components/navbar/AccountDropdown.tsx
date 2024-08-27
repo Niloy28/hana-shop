@@ -8,13 +8,7 @@ import {
   LogoutLink,
   RegisterLink,
 } from "@kinde-oss/kinde-auth-nextjs";
-import {
-  CircleUser,
-  MoonIcon,
-  SunIcon,
-  ToggleLeftIcon,
-  ToggleRightIcon,
-} from "lucide-react";
+import { CircleUser } from "lucide-react";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -24,6 +18,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import ThemeToggle from "./ThemeToggle";
 
 const AccountDropdown = ({
   authUser,
@@ -57,22 +52,13 @@ const AccountDropdown = ({
           </>
         )}
         {authUser && (
-          <DropdownMenuItem className="w-full">
-            <LogoutLink>Logout</LogoutLink>
+          <DropdownMenuItem>
+            <LogoutLink className="w-full">Logout</LogoutLink>
           </DropdownMenuItem>
         )}
         <DropdownMenuSeparator />
-        <DropdownMenuItem
-          className="hover:cursor-pointer"
-          onClick={() => {
-            theme === "light" ? setTheme("dark") : setTheme("light");
-          }}
-        >
-          <div className="flex w-full justify-evenly">
-            <MoonIcon />
-            {theme === "light" ? <ToggleRightIcon /> : <ToggleLeftIcon />}
-            <SunIcon />
-          </div>
+        <DropdownMenuItem>
+          <ThemeToggle />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
