@@ -1,9 +1,7 @@
 "use server";
 
 import prisma from "@/lib/db";
-import { verifyAdmin } from "@/lib/utils";
-import { productSchema } from "@/lib/zodSchema";
-import { parseWithZod } from "@conform-to/zod";
+import { createProductData, verifyAdmin } from "@/lib/utils";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 
@@ -15,27 +13,38 @@ export const createProduct = async (prevState: unknown, formData: FormData) => {
     return redirect("/");
   }
 
-  const submission = parseWithZod(formData, {
-    schema: productSchema,
-  });
+  const { submission, data } = createProductData(formData);
 
-  if (submission.status !== "success") {
+  if (!data) {
     return submission.reply();
   }
 
   await prisma.product.create({
-    data: {
-      name: submission.value.name,
-      description: submission.value.description,
-      category: submission.value.category,
-      price: submission.value.price,
-      productStatus: submission.value.productStatus,
-      // split image string into array
-      images: submission.value.images.flatMap((image) =>
-        image.split(",").map((url) => url.trim()),
-      ),
-      isFeatured: submission.value.isFeatured,
+    data,
+  });
+
+  redirect("/dashboard/products");
+};
+
+export const updateProduct = async (prevState: unknown, formData: FormData) => {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  if (!user || !verifyAdmin(user.email)) {
+    return redirect("/");
+  }
+
+  const { submission, data } = createProductData(formData);
+
+  if (!data) {
+    return submission.reply();
+  }
+
+  await prisma.product.update({
+    where: {
+      id: formData.get("productID") as string,
     },
+    data,
   });
 
   redirect("/dashboard/products");

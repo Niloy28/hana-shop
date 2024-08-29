@@ -1,6 +1,5 @@
 "use client";
 
-import { createProduct } from "@/app/actions";
 import { SelectConform } from "@/components/conform/SelectConform";
 import { SwitchConform } from "@/components/conform/SwitchConform";
 import ImageUploadDisplay from "@/components/dashboard/products/create/ImageUploadDisplay";
@@ -21,7 +20,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { UploadButton, UploadDropzone } from "@/lib/uploadthing";
 import { enumToString } from "@/lib/utils";
 import { productSchema } from "@/lib/zodSchema";
-import { useForm } from "@conform-to/react";
+import { SubmissionResult, useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { Category, Product, ProductStatus } from "@prisma/client";
 import { ChevronLeft } from "lucide-react";
@@ -30,9 +29,18 @@ import { useState } from "react";
 import { useFormState } from "react-dom";
 import { ClientUploadedFileData } from "uploadthing/types";
 
-const ProductForm = ({ product }: Readonly<{ product?: Product }>) => {
+const ProductForm = ({
+  product,
+  formAction,
+}: Readonly<{
+  product?: Product;
+  formAction: (
+    prevState: unknown,
+    formData: FormData,
+  ) => Promise<SubmissionResult<string[]> | undefined>;
+}>) => {
   const [images, setImages] = useState<string[]>(product?.images ?? []);
-  const [latestState, action] = useFormState(createProduct, undefined);
+  const [latestState, action] = useFormState(formAction, undefined);
   const [form, fields] = useForm({
     defaultValue: {
       name: product?.name ?? "",
@@ -88,6 +96,12 @@ const ProductForm = ({ product }: Readonly<{ product?: Product }>) => {
         </CardHeader>
         <CardContent>
           <div className="flex flex-col gap-4">
+            <Input
+              type="hidden"
+              key={form.id}
+              name="productID"
+              value={product?.id ?? ""}
+            />
             <ProductFormFieldWrapper errors={fields.name.errors}>
               <Label htmlFor={fields.name.id}>Name</Label>
               <Input
