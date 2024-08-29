@@ -14,11 +14,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ProductStatus } from "@prisma/client";
-import { PlusCircle, User2Icon, UserIcon } from "lucide-react";
+import prisma from "@/lib/db";
+import { PlusCircle } from "lucide-react";
 import Link from "next/link";
 
-const ProductsPage = () => {
+const ProductsPage = async () => {
+  const products = await prisma.product.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
   return (
     <>
       <div className="flex items-center justify-end">
@@ -43,28 +49,17 @@ const ProductsPage = () => {
                 <TableHead>Image</TableHead>
                 <TableHead>Name</TableHead>
                 <TableHead>Status</TableHead>
+                <TableHead>Category</TableHead>
                 <TableHead>Price</TableHead>
                 <TableHead>Date</TableHead>
+                <TableHead className="text-center">Featured</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              <ProductTableData
-                key="Macbook"
-                image={<UserIcon />}
-                name="Macbook"
-                status={ProductStatus.Active}
-                date={new Date()}
-                price={2999}
-              />
-              <ProductTableData
-                key="Nike Air"
-                image={<User2Icon />}
-                name="Nike Air"
-                status={ProductStatus.Out_Of_Stock}
-                date={new Date()}
-                price={299}
-              />
+              {products.map((product) => (
+                <ProductTableData key={product.id} product={product} />
+              ))}
             </TableBody>
           </Table>
         </CardContent>
