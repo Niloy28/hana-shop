@@ -10,8 +10,8 @@ const homePageLinks: LinkData[] = [
     href: "/about",
   },
   {
-    name: "Bouquets",
-    href: "/products/bouquets",
+    name: "Products",
+    href: "/products",
   },
   {
     name: "Blog",
