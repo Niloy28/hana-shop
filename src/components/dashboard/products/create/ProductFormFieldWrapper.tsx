@@ -1,6 +1,6 @@
 import React from "react";
 
-const CreateProductFieldWrapper = ({
+const ProductFormFieldWrapper = ({
   children,
   errors,
 }: Readonly<{ children: React.ReactNode; errors: string[] | undefined }>) => {
@@ -12,4 +12,4 @@ const CreateProductFieldWrapper = ({
   );
 };
 
-export default CreateProductFieldWrapper;
+export default ProductFormFieldWrapper;

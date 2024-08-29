@@ -9,30 +9,41 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { toCurrencyString } from "@/lib/utils";
-import { ProductStatus } from "@prisma/client";
-import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
-import React from "react";
+import { Product } from "@prisma/client";
+import { Check, MoreHorizontal, Pencil, Trash2, X } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 const ProductTableData = ({
-  image,
-  name,
-  status,
-  price,
-  date,
+  product,
 }: Readonly<{
-  image: string | React.ReactNode;
-  name: string;
-  status: ProductStatus;
-  price: number;
-  date: Date;
+  product: Product;
 }>) => {
   return (
     <TableRow>
-      <TableCell>{image}</TableCell>
-      <TableCell className="capitalize">{name}</TableCell>
-      <TableCell>{status.toString().split("_").join(" ")}</TableCell>
-      <TableCell>{toCurrencyString(price)}</TableCell>
-      <TableCell>{date.toLocaleDateString()}</TableCell>
+      <TableCell>
+        <Image
+          src={product.images[0]}
+          width={100}
+          height={100}
+          alt="Product Image"
+          className="h-16 w-16 rounded-md object-cover"
+        />
+      </TableCell>
+      <TableCell className="capitalize">{product.name}</TableCell>
+      <TableCell>
+        {product.productStatus.toString().split("_").join(" ")}
+      </TableCell>
+      <TableCell>{product.category.toString().split("_").join(" ")}</TableCell>
+      <TableCell>{toCurrencyString(product.price)}</TableCell>
+      <TableCell>{product.createdAt.toLocaleDateString()}</TableCell>
+      <TableCell>
+        {product.isFeatured ? (
+          <Check className="m-auto h-5 w-5" />
+        ) : (
+          <X className="m-auto h-5 w-5" />
+        )}
+      </TableCell>
       <TableCell className="text-right">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -43,17 +54,21 @@ const ProductTableData = ({
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <span className="flex gap-x-2">
-                <Pencil />
-                <p>Edit</p>
-              </span>
+            <DropdownMenuItem className="hover:cursor-pointer">
+              <Link href={`/dashboard/products/${product.id}/edit`}>
+                <span className="flex gap-x-2">
+                  <Pencil />
+                  <p>Edit</p>
+                </span>
+              </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              <span className="flex gap-x-2">
-                <Trash2 className="text-red-500" />
-                <p>Delete</p>
-              </span>
+            <DropdownMenuItem className="hover:cursor-pointer">
+              <Link href={`/dashboard/products/${product.id}/delete`}>
+                <span className="flex gap-x-2">
+                  <Trash2 className="text-red-500" />
+                  <p>Delete</p>
+                </span>
+              </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
