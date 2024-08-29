@@ -49,3 +49,20 @@ export const updateProduct = async (prevState: unknown, formData: FormData) => {
 
   redirect("/dashboard/products");
 };
+
+export const deleteProduct = async (formData: FormData) => {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  if (!user || !verifyAdmin(user.email)) {
+    return redirect("/");
+  }
+
+  await prisma.product.delete({
+    where: {
+      id: formData.get("productID") as string,
+    },
+  });
+
+  redirect("/dashboard/products");
+};
