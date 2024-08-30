@@ -1,4 +1,4 @@
-import { createProduct } from "@/app/actions";
+import { createProduct } from "@/app/actions/productActions";
 import ProductForm from "@/components/dashboard/products/ProductForm";
 
 const ProductCreatePage = () => {

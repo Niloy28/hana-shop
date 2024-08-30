@@ -1,4 +1,4 @@
-import { updateProduct } from "@/app/actions";
+import { updateProduct } from "@/app/actions/productActions";
 import ProductForm from "@/components/dashboard/products/ProductForm";
 import prisma from "@/lib/db";
 import { notFound } from "next/navigation";

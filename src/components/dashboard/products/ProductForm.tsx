@@ -2,8 +2,8 @@
 
 import { SelectConform } from "@/components/conform/SelectConform";
 import { SwitchConform } from "@/components/conform/SwitchConform";
+import FormFieldWrapper from "@/components/dashboard/products/create/FormFieldWrapper";
 import ImageUploadDisplay from "@/components/dashboard/products/create/ImageUploadDisplay";
-import ProductFormFieldWrapper from "@/components/dashboard/products/create/ProductFormFieldWrapper";
 import SubmitButton from "@/components/SubmitButton";
 import { Button } from "@/components/ui/button";
 import {
@@ -102,7 +102,7 @@ const ProductForm = ({
               name="productID"
               value={product?.id ?? ""}
             />
-            <ProductFormFieldWrapper errors={fields.name.errors}>
+            <FormFieldWrapper errors={fields.name.errors}>
               <Label htmlFor={fields.name.id}>Name</Label>
               <Input
                 type="text"
@@ -112,8 +112,8 @@ const ProductForm = ({
                 className="w-full"
                 placeholder="Product Name"
               />
-            </ProductFormFieldWrapper>
-            <ProductFormFieldWrapper errors={fields.description.errors}>
+            </FormFieldWrapper>
+            <FormFieldWrapper errors={fields.description.errors}>
               <Label htmlFor={fields.description.id}>Description</Label>
               <Textarea
                 key={fields.description.key}
@@ -121,9 +121,9 @@ const ProductForm = ({
                 defaultValue={fields.description.initialValue}
                 placeholder="Write product description here"
               />
-            </ProductFormFieldWrapper>
+            </FormFieldWrapper>
 
-            <ProductFormFieldWrapper errors={fields.price.errors}>
+            <FormFieldWrapper errors={fields.price.errors}>
               <Label htmlFor={fields.price.id}>Price</Label>
               <span className="flex items-center gap-2">
                 <p className="text-xl">$</p>
@@ -135,16 +135,16 @@ const ProductForm = ({
                   placeholder="Input price in USD"
                 />
               </span>
-            </ProductFormFieldWrapper>
+            </FormFieldWrapper>
 
-            <ProductFormFieldWrapper errors={fields.isFeatured.errors}>
+            <FormFieldWrapper errors={fields.isFeatured.errors}>
               <div className="flex items-center gap-3">
                 <Label htmlFor={fields.isFeatured.id}>Featured Product</Label>
                 <SwitchConform meta={fields.isFeatured} />
               </div>
-            </ProductFormFieldWrapper>
+            </FormFieldWrapper>
 
-            <ProductFormFieldWrapper errors={fields.productStatus.errors}>
+            <FormFieldWrapper errors={fields.productStatus.errors}>
               <Label htmlFor={fields.productStatus.id}>Status</Label>
               <SelectConform
                 placeholder="Select Product Status"
@@ -154,9 +154,9 @@ const ProductForm = ({
                   value: productStatus,
                 }))}
               />
-            </ProductFormFieldWrapper>
+            </FormFieldWrapper>
 
-            <ProductFormFieldWrapper errors={fields.category.errors}>
+            <FormFieldWrapper errors={fields.category.errors}>
               <Label htmlFor={fields.category.id}>Category</Label>
               <SelectConform
                 placeholder="Select Product Category"
@@ -166,9 +166,9 @@ const ProductForm = ({
                   value: category,
                 }))}
               />
-            </ProductFormFieldWrapper>
+            </FormFieldWrapper>
 
-            <ProductFormFieldWrapper
+            <FormFieldWrapper
               errors={images.length > 0 ? undefined : fields.images.errors}
             >
               <Label htmlFor={fields.images.id}>Images</Label>
@@ -202,7 +202,7 @@ const ProductForm = ({
                   onClientUploadComplete={onImageUploadComplete}
                 />
               )}
-            </ProductFormFieldWrapper>
+            </FormFieldWrapper>
           </div>
         </CardContent>
         <CardFooter>

@@ -10,3 +10,8 @@ export const productSchema = z.object({
   category: z.nativeEnum(Category),
   isFeatured: z.boolean().optional(),
 });
+
+export const bannerSchema = z.object({
+  title: z.string().min(1),
+  source: z.string().min(1),
+});
