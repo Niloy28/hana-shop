@@ -49,7 +49,7 @@ const ProductForm = ({
       price: product?.price ?? "",
       category: product?.category ?? "",
       images: product?.images ?? [],
-      isFeatured: product?.isFeatured ?? "",
+      isFeatured: product?.isFeatured ?? false,
     },
     lastResult: latestState,
     constraint: getZodConstraint(productSchema),

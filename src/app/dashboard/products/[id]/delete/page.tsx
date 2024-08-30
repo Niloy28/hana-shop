@@ -1,4 +1,5 @@
 import { deleteProduct } from "@/app/actions";
+import SubmitButton from "@/components/SubmitButton";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -31,7 +32,7 @@ const ProductDelete = async ({
           </Button>
           <form action={deleteProduct}>
             <Input type="hidden" name="productID" value={params.id} />
-            <Button variant="destructive">Delete</Button>
+            <SubmitButton variant="destructive">Delete</SubmitButton>
           </form>
         </CardFooter>
       </Card>

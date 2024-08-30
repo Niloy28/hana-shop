@@ -44,7 +44,8 @@ export const createProductData = (formData: FormData) => {
       images: submission.value.images.flatMap((image) =>
         image.split(",").map((url) => url.trim()),
       ),
-      isFeatured: submission.value.isFeatured,
+      // value is empty when switch is unchecked
+      isFeatured: submission.value.isFeatured ?? false,
     },
   };
 };
