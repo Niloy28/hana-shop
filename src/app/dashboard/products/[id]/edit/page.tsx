@@ -3,7 +3,7 @@ import ProductForm from "@/components/dashboard/products/ProductForm";
 import prisma from "@/lib/db";
 import { notFound } from "next/navigation";
 
-const ProductEdit = async ({
+const ProductEditPage = async ({
   params,
 }: Readonly<{
   params: { id: string };
@@ -21,4 +21,4 @@ const ProductEdit = async ({
   return <ProductForm product={product} formAction={updateProduct} />;
 };
 
-export default ProductEdit;
+export default ProductEditPage;

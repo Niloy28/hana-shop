@@ -1,8 +1,8 @@
 import { createProduct } from "@/app/actions";
 import ProductForm from "@/components/dashboard/products/ProductForm";
 
-const CreateProductPage = () => {
+const ProductCreatePage = () => {
   return <ProductForm formAction={createProduct} />;
 };
 
-export default CreateProductPage;
+export default ProductCreatePage;

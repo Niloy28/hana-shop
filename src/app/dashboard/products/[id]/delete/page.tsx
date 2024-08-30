@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 
-const ProductDelete = async ({
+const ProductDeletePage = async ({
   params,
 }: Readonly<{
   params: { id: string };
@@ -40,4 +40,4 @@ const ProductDelete = async ({
   );
 };
 
-export default ProductDelete;
+export default ProductDeletePage;
