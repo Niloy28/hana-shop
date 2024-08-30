@@ -57,6 +57,13 @@ const BannersPage = async () => {
               ))}
             </TableBody>
           </Table>
+          {banners.length === 0 ? (
+            <div className="mt-4 text-center text-xl text-muted-foreground">
+              No banners were found
+            </div>
+          ) : (
+            <></>
+          )}
         </CardContent>
       </Card>
     </>

@@ -62,6 +62,13 @@ const ProductsPage = async () => {
               ))}
             </TableBody>
           </Table>
+          {products.length === 0 ? (
+            <div className="mt-4 text-center text-xl text-muted-foreground">
+              No products were found
+            </div>
+          ) : (
+            <></>
+          )}
         </CardContent>
       </Card>
     </>
