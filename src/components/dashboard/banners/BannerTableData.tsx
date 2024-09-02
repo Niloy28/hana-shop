@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Banner } from "@prisma/client";
-import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
+import { MoreHorizontal, Trash2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -40,14 +40,6 @@ const BannerTableData = ({
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="hover:cursor-pointer">
-              <Link href={`/dashboard/banners/${banner.id}/edit`}>
-                <span className="flex gap-x-2">
-                  <Pencil />
-                  <p>Edit</p>
-                </span>
-              </Link>
-            </DropdownMenuItem>
             <DropdownMenuItem className="hover:cursor-pointer">
               <Link href={`/dashboard/banners/${banner.id}/delete`}>
                 <span className="flex gap-x-2">

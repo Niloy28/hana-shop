@@ -1,4 +1,4 @@
-import { deleteProduct } from "@/app/actions/productActions";
+import { deleteBanner } from "@/app/actions/bannerActions";
 import SubmitButton from "@/components/SubmitButton";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 
-const ProductDeletePage = ({
+const BannerDeletePage = ({
   params,
 }: Readonly<{
   params: { id: string };
@@ -22,16 +22,16 @@ const ProductDeletePage = ({
         <CardHeader className="text-3xl text-red-500">Are you sure?</CardHeader>
         <CardContent>
           <CardDescription>
-            This will permanently delete this product from the list.{" "}
+            This will permanently delete this banner from the list.{" "}
             <b>This action cannot be undone.</b>
           </CardDescription>
         </CardContent>
         <CardFooter className="flex gap-4">
           <Button variant="outline">
-            <Link href="/dashboard/products">Cancel</Link>
+            <Link href="/dashboard/banners">Cancel</Link>
           </Button>
-          <form action={deleteProduct}>
-            <Input type="hidden" name="productID" value={params.id} />
+          <form action={deleteBanner}>
+            <Input type="hidden" name="bannerID" value={params.id} />
             <SubmitButton variant="destructive">Delete</SubmitButton>
           </form>
         </CardFooter>
@@ -40,4 +40,4 @@ const ProductDeletePage = ({
   );
 };
 
-export default ProductDeletePage;
+export default BannerDeletePage;
