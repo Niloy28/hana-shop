@@ -106,6 +106,7 @@ const ProductForm = ({
               <Label htmlFor={fields.name.id}>Name</Label>
               <Input
                 type="text"
+                autoComplete="off"
                 key={fields.name.key}
                 name={fields.name.name}
                 defaultValue={fields.name.initialValue}
@@ -128,7 +129,8 @@ const ProductForm = ({
               <span className="flex items-center gap-2">
                 <p className="text-xl">$</p>
                 <Input
-                  type="number"
+                  type="text"
+                  autoComplete="off"
                   key={fields.price.key}
                   name={fields.price.name}
                   defaultValue={fields.price.initialValue}
