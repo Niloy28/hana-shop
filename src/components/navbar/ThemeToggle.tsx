@@ -1,3 +1,5 @@
+"use client";
+
 import {
   MoonIcon,
   SunIcon,
@@ -11,15 +13,16 @@ const ThemeToggle = () => {
 
   return (
     <div
+      data-testid="toggle"
       className="w-full hover:cursor-pointer"
       onClick={() => {
         theme === "light" ? setTheme("dark") : setTheme("light");
       }}
     >
       <div className="flex w-full justify-evenly">
-        <MoonIcon />
+        <MoonIcon data-testid="moonIcon" />
         {theme === "light" ? <ToggleRightIcon /> : <ToggleLeftIcon />}
-        <SunIcon />
+        <SunIcon data-testid="sunIcon" />
       </div>
     </div>
   );
