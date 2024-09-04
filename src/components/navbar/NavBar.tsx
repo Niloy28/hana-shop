@@ -5,6 +5,7 @@ import Link from "next/link";
 import { verifyAdmin } from "@/lib/utils";
 import { LinkData } from "@/types/link-data";
 import Logo from "../Logo";
+import ShoppingCartIcon from "../ShoppingCartIcon";
 import AccountDropdown from "./AccountDropdown";
 import DesktopNavigation from "./DesktopNavigation";
 import MobileNavigation from "./MobileNavigation";
@@ -24,8 +25,8 @@ const NavBar = ({
         </Link>
         <div className="space-2 flex">
           <DesktopNavigation links={links} />
-
           <MobileNavigation links={links} />
+          {authUser && <ShoppingCartIcon />}
           <AccountDropdown
             isLoggedIn={authUser ? true : false}
             isAdmin={verifyAdmin(authUser ? authUser.email : "")}
