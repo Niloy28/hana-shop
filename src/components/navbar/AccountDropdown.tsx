@@ -1,20 +1,12 @@
 "use client";
 
-import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
-import { useTheme } from "next-themes";
-
 import {
   LoginLink,
   LogoutLink,
   RegisterLink,
 } from "@kinde-oss/kinde-auth-nextjs";
-import {
-  CircleUser,
-  MoonIcon,
-  SunIcon,
-  ToggleLeftIcon,
-  ToggleRightIcon,
-} from "lucide-react";
+import { CircleUser } from "lucide-react";
+import Link from "next/link";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -24,14 +16,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import ThemeToggle from "./ThemeToggle";
 
 const AccountDropdown = ({
-  authUser,
+  isLoggedIn,
+  isAdmin,
 }: Readonly<{
-  authUser: KindeUser | null;
+  isLoggedIn: boolean;
+  isAdmin: boolean;
 }>) => {
-  const { theme, setTheme } = useTheme();
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -46,7 +39,7 @@ const AccountDropdown = ({
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {!authUser && (
+        {!isLoggedIn && (
           <>
             <DropdownMenuItem>
               <LoginLink className="w-full">Sign In</LoginLink>
@@ -56,23 +49,21 @@ const AccountDropdown = ({
             </DropdownMenuItem>
           </>
         )}
-        {authUser && (
-          <DropdownMenuItem className="w-full">
-            <LogoutLink>Logout</LogoutLink>
+        {isAdmin && (
+          <DropdownMenuItem>
+            <Link className="w-full" href="/dashboard">
+              Dashboard
+            </Link>
+          </DropdownMenuItem>
+        )}
+        {isLoggedIn && (
+          <DropdownMenuItem>
+            <LogoutLink className="w-full">Logout</LogoutLink>
           </DropdownMenuItem>
         )}
         <DropdownMenuSeparator />
-        <DropdownMenuItem
-          className="hover:cursor-pointer"
-          onClick={() => {
-            theme === "light" ? setTheme("dark") : setTheme("light");
-          }}
-        >
-          <div className="flex w-full justify-evenly">
-            <MoonIcon />
-            {theme === "light" ? <ToggleRightIcon /> : <ToggleLeftIcon />}
-            <SunIcon />
-          </div>
+        <DropdownMenuItem>
+          <ThemeToggle />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -5,10 +5,17 @@ import { usePathname } from "next/navigation";
 
 import { MenuIcon } from "lucide-react";
 import { Button } from "../ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 
 // User Imports
 import { LinkData } from "@/types/link-data";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "../ui/sheet";
 import NavBarLink from "./NavBarLink";
 
 const MobileNavigation = ({
@@ -28,22 +35,26 @@ const MobileNavigation = ({
         </SheetTrigger>
 
         <SheetContent side="right">
-          <ul className="space-2 mt-4 flex flex-col">
-            {links.map((link) => (
-              <NavBarLink
-                key={link.name}
-                href={link.href}
-                className={cn(
-                  link.href === pathName
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground",
-                  "w-full",
-                )}
-              >
-                {link.name}
-              </NavBarLink>
-            ))}
-          </ul>
+          <SheetHeader>
+            <SheetTitle>Menu</SheetTitle>
+            <SheetDescription>
+              {links.map((link) => (
+                <NavBarLink
+                  type="span"
+                  key={link.name}
+                  href={link.href}
+                  className={cn(
+                    link.href === pathName
+                      ? "text-foreground"
+                      : "text-muted-foreground hover:text-foreground",
+                    "w-full",
+                  )}
+                >
+                  {link.name}
+                </NavBarLink>
+              ))}
+            </SheetDescription>
+          </SheetHeader>
         </SheetContent>
       </Sheet>
     </div>

@@ -2,6 +2,7 @@ import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 import Link from "next/link";
 
 // User Imports
+import { verifyAdmin } from "@/lib/utils";
 import { LinkData } from "@/types/link-data";
 import Logo from "../Logo";
 import AccountDropdown from "./AccountDropdown";
@@ -25,7 +26,10 @@ const NavBar = ({
           <DesktopNavigation links={links} />
 
           <MobileNavigation links={links} />
-          <AccountDropdown authUser={authUser} />
+          <AccountDropdown
+            isLoggedIn={authUser ? true : false}
+            isAdmin={verifyAdmin(authUser ? authUser.email : "")}
+          />
         </div>
       </div>
     </nav>
