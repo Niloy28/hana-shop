@@ -15,8 +15,12 @@ export const toCurrencyString = (currency: number) => {
   }).format(currency);
 };
 
-export const verifyAdmin = (email: string | null) => {
-  return email !== null && env.ADMIN_EMAIL.split(",").includes(email);
+export const verifyAdmin = (email: string | null | undefined) => {
+  return (
+    email !== null &&
+    email !== undefined &&
+    env.ADMIN_EMAIL.split(",").includes(email)
+  );
 };
 
 export const enumToString = (enumName: string) => {

@@ -28,8 +28,8 @@ const NavBar = ({
           <MobileNavigation links={links} />
           {authUser && <ShoppingCartIcon />}
           <AccountDropdown
-            isLoggedIn={authUser ? true : false}
-            isAdmin={verifyAdmin(authUser ? authUser.email : "")}
+            authUser={authUser}
+            isAdmin={verifyAdmin(authUser?.email)}
           />
         </div>
       </div>
