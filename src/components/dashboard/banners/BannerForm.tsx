@@ -101,6 +101,7 @@ const BannerForm = () => {
               <Label htmlFor={fields.title.id}>Title</Label>
               <Input
                 type="text"
+                autoComplete="off"
                 key={fields.title.key}
                 name={fields.title.name}
                 defaultValue={fields.title.initialValue}
