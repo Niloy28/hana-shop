@@ -16,7 +16,7 @@ const Hero = async () => {
   });
 
   return (
-    <AutoCarousel>
+    <AutoCarousel className="mb-8">
       <CarouselContent>
         {banners.map((banner) => (
           <CarouselItem
@@ -33,8 +33,8 @@ const Hero = async () => {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
+      <CarouselPrevious className="ml-16" />
+      <CarouselNext className="mr-16" />
     </AutoCarousel>
   );
 };

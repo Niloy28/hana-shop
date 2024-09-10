@@ -6,11 +6,13 @@ import { Carousel } from "../ui/carousel";
 
 const AutoCarousel = ({
   children,
-}: Readonly<{ children: React.ReactNode }>) => {
-  const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
+  className,
+}: Readonly<{ children: React.ReactNode; className?: string }>) => {
+  const plugin = useRef(Autoplay({ delay: 3000, stopOnInteraction: true }));
 
   return (
     <Carousel
+      className={className}
       plugins={[plugin.current]}
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.reset}
