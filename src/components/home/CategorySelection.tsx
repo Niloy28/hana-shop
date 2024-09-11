@@ -17,7 +17,7 @@ const CategorySelection = () => {
         </Link>
       </div>
 
-      <div className="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-6 lg:gap-8">
+      <div className="mt-6 grid grid-cols-1 gap-y-6 pb-4 sm:grid-cols-3 sm:gap-x-6 lg:gap-8">
         <CategoryView category="single" image={Single}>
           Single Flowers
         </CategoryView>

@@ -1,12 +1,12 @@
 import prisma from "@/lib/db";
 import Image from "next/image";
-import AutoCarousel from "./home/AutoCarousel";
+import AutoCarousel from "./AutoCarousel";
 import {
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "./ui/carousel";
+} from "../ui/carousel";
 
 const Hero = async () => {
   const banners = await prisma.banner.findMany({

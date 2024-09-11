@@ -2,8 +2,8 @@ import { toCurrencyString } from "@/lib/utils";
 import { Product } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "./ui/button";
-import { Card, CardContent } from "./ui/card";
+import { Button } from "../ui/button";
+import { Card, CardContent } from "../ui/card";
 
 const ProductCard = ({ product }: Readonly<{ product: Product }>) => {
   return (

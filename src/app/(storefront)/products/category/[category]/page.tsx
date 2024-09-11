@@ -1,4 +1,4 @@
-import ProductCard from "@/components/ProductCard";
+import ProductCard from "@/components/products/ProductCard";
 import prisma from "@/lib/db";
 import { capitalizeFirstLetter } from "@/lib/utils";
 import { Category } from "@prisma/client";
