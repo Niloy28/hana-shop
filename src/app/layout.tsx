@@ -1,9 +1,9 @@
+import { ourFileRouter } from "@/app/api/uploadthing/core";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { extractRouterConfig } from "uploadthing/server";
-import { ourFileRouter } from "./api/uploadthing/core";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });

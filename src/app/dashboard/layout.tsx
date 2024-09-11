@@ -36,7 +36,7 @@ const DashboardLayout = async ({
   const user = await getUser();
 
   if (!user || !verifyAdmin(user.email)) {
-    redirect("/home");
+    redirect("/");
   }
 
   return (
