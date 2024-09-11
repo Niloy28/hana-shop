@@ -23,6 +23,10 @@ export const verifyAdmin = (email: string | null | undefined) => {
   );
 };
 
+export const capitalizeFirstLetter = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
 export const enumToString = (enumName: string) => {
   return enumName.split("_").join(" ");
 };
