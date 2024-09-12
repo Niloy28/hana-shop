@@ -8,10 +8,10 @@ import { Card, CardContent } from "../ui/card";
 const ProductCard = ({ product }: Readonly<{ product: Product }>) => {
   return (
     <Card>
-      <CardContent>
+      <CardContent className="p-0 pb-2">
         <div className="flex flex-col items-center justify-center">
           <Link
-            className="flex flex-col items-center justify-center gap-2"
+            className="flex w-full flex-col items-center justify-center gap-2"
             href={`/products/${product.id}`}
           >
             <Image
@@ -19,10 +19,14 @@ const ProductCard = ({ product }: Readonly<{ product: Product }>) => {
               alt={product.name}
               width={600}
               height={600}
-              className="mt-6 h-56 w-56 rounded-lg object-cover"
+              className="h-full w-full rounded-lg object-cover"
             />
-            <div className="text-2xl">{product.name}</div>
-            <div>{product.description}</div>
+            <div className="px-1 text-center text-lg md:text-xl">
+              {product.name}
+            </div>
+            <div className="px-1 text-center text-base text-muted-foreground md:text-lg">
+              {product.description}
+            </div>
             <div className="text-muted-foreground">
               {toCurrencyString(product.price)}
             </div>
