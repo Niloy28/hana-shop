@@ -9,6 +9,7 @@ const FeaturedProducts = async () => {
     },
     where: {
       isFeatured: true,
+      productStatus: "Active",
     },
     take: 4,
   });
