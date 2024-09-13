@@ -24,7 +24,7 @@ const ProductCard = ({ product }: Readonly<{ product: Product }>) => {
             <div className="px-1 text-center text-lg md:text-xl">
               {product.name}
             </div>
-            <div className="px-1 text-center text-base text-muted-foreground md:text-lg">
+            <div className="line-clamp-3 px-1 text-center text-base text-muted-foreground md:text-lg">
               {product.description}
             </div>
             <div className="text-muted-foreground">
