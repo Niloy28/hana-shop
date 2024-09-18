@@ -4,6 +4,7 @@ import { SelectConform } from "@/components/conform/SelectConform";
 import { SwitchConform } from "@/components/conform/SwitchConform";
 import FormFieldWrapper from "@/components/dashboard/products/create/FormFieldWrapper";
 import ImageUploadDisplay from "@/components/dashboard/products/create/ImageUploadDisplay";
+import { ForwardRefEditor } from "@/components/ForwardRefEditor";
 import SubmitButton from "@/components/SubmitButton";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,7 +17,6 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { UploadButton, UploadDropzone } from "@/lib/uploadthing";
 import { enumToString } from "@/lib/utils";
 import { productSchema } from "@/lib/zodSchema";
@@ -25,7 +25,7 @@ import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { Category, Product, ProductStatus } from "@prisma/client";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useFormState } from "react-dom";
 import { ClientUploadedFileData } from "uploadthing/types";
 
@@ -61,6 +61,7 @@ const ProductForm = ({
     shouldValidate: "onBlur",
     shouldRevalidate: "onInput",
   });
+  const [description, setDescription] = useState(product?.description ?? "");
 
   const onImageUploadComplete = (
     response: ClientUploadedFileData<{ uploadedBy: string }>[],
@@ -114,13 +115,24 @@ const ProductForm = ({
                 placeholder="Product Name"
               />
             </FormFieldWrapper>
+
+            {/* TODO: Needs optimaztion to fix slowdown while typing.
+                 Slowdown caused by setting state every change.
+            */}
             <FormFieldWrapper errors={fields.description.errors}>
               <Label htmlFor={fields.description.id}>Description</Label>
-              <Textarea
+              <Suspense fallback={<p>Loading...</p>}>
+                <ForwardRefEditor
+                  markdown={fields.description.initialValue ?? ""}
+                  placeholder="Product Description"
+                  onChange={setDescription}
+                />
+              </Suspense>
+              <Input
+                type="hidden"
+                value={description}
                 key={fields.description.key}
                 name={fields.description.name}
-                defaultValue={fields.description.initialValue}
-                placeholder="Write product description here"
               />
             </FormFieldWrapper>
 
@@ -179,7 +191,6 @@ const ProductForm = ({
                 key={fields.images.key}
                 name={fields.images.name}
                 value={images}
-                defaultValue={fields.images.initialValue as any}
               />
               {images.length > 0 ? (
                 <div className="flex flex-col items-start gap-3">
