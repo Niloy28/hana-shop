@@ -2,6 +2,8 @@ import { toCurrencyString } from "@/lib/utils";
 import { Product } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
 
@@ -25,7 +27,9 @@ const ProductCard = ({ product }: Readonly<{ product: Product }>) => {
               {product.name}
             </div>
             <div className="line-clamp-3 px-1 text-center text-base text-muted-foreground md:text-lg">
-              {product.description}
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {product.description}
+              </ReactMarkdown>
             </div>
             <div className="text-muted-foreground">
               {toCurrencyString(product.price)}
