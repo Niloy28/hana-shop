@@ -1,10 +1,19 @@
 import AccountDropdown from "@/components/navbar/AccountDropdown";
+import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 describe("AccountDropdown", () => {
+  const mockUser: KindeUser = {
+    id: "1",
+    email: "test@test.com",
+    family_name: "Test",
+    given_name: "Test",
+    picture: "",
+  };
+
   it("should render a menu button", () => {
-    render(<AccountDropdown isLoggedIn={true} isAdmin={false} />);
+    render(<AccountDropdown authUser={mockUser} isAdmin={false} />);
 
     const button = screen.getByRole("button");
 
@@ -12,7 +21,7 @@ describe("AccountDropdown", () => {
   });
 
   it("should render account menu when button is clicked", async () => {
-    render(<AccountDropdown isLoggedIn={true} isAdmin={false} />);
+    render(<AccountDropdown authUser={mockUser} isAdmin={false} />);
 
     const user = userEvent.setup();
     await user.click(screen.getByRole("button"));
@@ -23,7 +32,7 @@ describe("AccountDropdown", () => {
   });
 
   it("should render sign in and register button when button is clicked while not logged in", async () => {
-    render(<AccountDropdown isLoggedIn={false} isAdmin={false} />);
+    render(<AccountDropdown authUser={mockUser} isAdmin={false} />);
 
     const user = userEvent.setup();
     await user.click(screen.getByRole("button"));
@@ -36,7 +45,7 @@ describe("AccountDropdown", () => {
   });
 
   it("should render sign out button when button is clicked while logged in", async () => {
-    render(<AccountDropdown isLoggedIn={true} isAdmin={false} />);
+    render(<AccountDropdown authUser={mockUser} isAdmin={false} />);
 
     const user = userEvent.setup();
     await user.click(screen.getByRole("button"));
@@ -47,7 +56,7 @@ describe("AccountDropdown", () => {
   });
 
   it("should render dashboard button when button is clicked while logged in as admin", async () => {
-    render(<AccountDropdown isLoggedIn={true} isAdmin={true} />);
+    render(<AccountDropdown authUser={mockUser} isAdmin={true} />);
 
     const user = userEvent.setup();
     await user.click(screen.getByRole("button"));

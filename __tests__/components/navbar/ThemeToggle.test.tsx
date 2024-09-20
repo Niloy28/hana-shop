@@ -23,8 +23,8 @@ const setup = (theme: ThemeVariant | undefined = "dark") => {
     { theme },
   );
   const spy = screen.getByTestId("theme-spy");
-
   const toggle = screen.getByTestId("toggle");
+
   return { toggle, spy };
 };
 
@@ -48,12 +48,14 @@ describe("ThemeToggle", () => {
   it("should toggle the theme to dark", async () => {
     const { toggle, spy } = setup("light");
     await userEvent.click(toggle);
+
     expect(spy).toHaveTextContent("dark");
   });
 
   it("should toggle the theme to light", async () => {
     const { toggle, spy } = setup("dark");
     await userEvent.click(toggle);
+
     expect(spy).toHaveTextContent("light");
   });
 });
