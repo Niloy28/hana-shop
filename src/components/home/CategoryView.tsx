@@ -17,7 +17,7 @@ const CategoryView = ({
     >
       <Image
         src={image}
-        alt="Single flower"
+        alt={`${category} flower`}
         className="object-cover object-center"
       />
       <div className="bg-gradient-to-b from-transparent to-black opacity-50" />
