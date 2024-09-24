@@ -32,7 +32,7 @@ describe("AccountDropdown", () => {
   });
 
   it("should render sign in and register button when button is clicked while not logged in", async () => {
-    render(<AccountDropdown authUser={mockUser} isAdmin={false} />);
+    render(<AccountDropdown authUser={null} isAdmin={false} />);
 
     const user = userEvent.setup();
     await user.click(screen.getByRole("button"));

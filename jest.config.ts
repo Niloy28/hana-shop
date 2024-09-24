@@ -1,4 +1,24 @@
-const esmModules = ["@t3-oss", "jose", "uncrypto"];
+const esmModules = [
+  "@t3-oss",
+  "jose",
+  "uncrypto",
+  "react-markdown",
+  "devlop",
+  "hast-util-to-jsx-runtime",
+  "comma-separated-tokens",
+  "estree-util-is-identifier-name",
+  "hast-util-whitespace",
+  "property-information",
+  "space-separated-tokens",
+  "unist-util-position",
+  "vfile-message",
+  "unist-util-stringify-position",
+  "html-url-attributes",
+  "remark-parse",
+  "mdast-util-from-markdown",
+  "mdast-util-to-string",
+  "micromark",
+];
 
 import type { Config } from "jest";
 import nextJest from "next/jest.js";
