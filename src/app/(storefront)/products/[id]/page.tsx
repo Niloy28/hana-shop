@@ -1,6 +1,7 @@
 import ProductImageSlider from "@/components/products/ProductImageSlider";
 import { Button } from "@/components/ui/button";
 import prisma from "@/lib/db";
+import { ShoppingCartIcon } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -27,8 +28,11 @@ const ProductPage = async ({
                 {product.description}
               </ReactMarkdown>
             </p>
-            <Button className="mt-auto place-self-end rounded-lg bg-primary">
-              Add to Cart
+            <Button className="mb-8 mt-auto place-self-end rounded-lg bg-primary">
+              <div className="flex items-center justify-center gap-2">
+                <ShoppingCartIcon />
+                <p>Add to Cart</p>
+              </div>
             </Button>
           </div>
         </>
