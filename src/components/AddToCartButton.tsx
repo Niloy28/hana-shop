@@ -5,7 +5,10 @@ import { Loader2, ShoppingCartIcon } from "lucide-react";
 import { useFormStatus } from "react-dom";
 import { Button } from "./ui/button";
 
-const AddToCartButton = ({ className }: Readonly<{ className?: string }>) => {
+const AddToCartButton = ({
+  className,
+  disabled,
+}: Readonly<{ className?: string; disabled?: boolean }>) => {
   const { pending } = useFormStatus();
 
   return (
@@ -17,7 +20,10 @@ const AddToCartButton = ({ className }: Readonly<{ className?: string }>) => {
           </div>
         </Button>
       ) : (
-        <Button className={cn(className, "rounded-lg bg-primary")}>
+        <Button
+          disabled={disabled}
+          className={cn(className, "rounded-lg bg-primary")}
+        >
           <div className="flex items-center justify-center gap-2">
             <ShoppingCartIcon />
             <p>Add to Cart</p>

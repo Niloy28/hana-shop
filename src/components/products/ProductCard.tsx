@@ -1,11 +1,11 @@
+import { addCartItem } from "@/app/actions/cartActions";
 import { toCurrencyString } from "@/lib/utils";
 import { Product } from "@prisma/client";
-import { ShoppingCartIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { Button } from "../ui/button";
+import AddToCartButton from "../AddToCartButton";
 import { Card, CardContent } from "../ui/card";
 import {
   Carousel,
@@ -15,6 +15,8 @@ import {
 } from "../ui/carousel";
 
 const ProductCard = ({ product }: Readonly<{ product: Product }>) => {
+  const addProductToCart = addCartItem.bind(null, product.id);
+
   return (
     <Card>
       <CardContent className="p-0 pb-2">
@@ -51,15 +53,10 @@ const ProductCard = ({ product }: Readonly<{ product: Product }>) => {
               {toCurrencyString(product.price)}
             </div>
           </Link>
-          <Button
-            className="m-auto mt-2"
-            disabled={product.productStatus === "Out_Of_Stock"}
-          >
-            <div className="flex items-center justify-center gap-2">
-              <ShoppingCartIcon />
-              <p>Add to Cart</p>
-            </div>
-          </Button>
+
+          <form action={addProductToCart}>
+            <AddToCartButton disabled={product.productStatus !== "Active"} />
+          </form>
         </div>
       </CardContent>
     </Card>
