@@ -4,6 +4,7 @@ import prisma from "@/lib/db";
 import { redis } from "@/lib/redis";
 import { CartData } from "@/types/cart-data";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export const addCartItem = async (productID: string) => {
@@ -71,4 +72,5 @@ export const addCartItem = async (productID: string) => {
   }
 
   await redis.set(`cart-${user.id}`, myCart);
+  revalidatePath("/", "layout");
 };
