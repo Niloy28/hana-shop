@@ -25,11 +25,11 @@ const ProductPage = async ({
             <h3 className="text-2xl font-semibold text-foreground">
               {product.name}
             </h3>
-            <p className="text-wrap">
+            <div className="text-wrap">
               <ReactMarkdown remarkPlugins={[remarkGfm]}>
                 {product.description}
               </ReactMarkdown>
-            </p>
+            </div>
 
             <form
               action={addProductToCart}
