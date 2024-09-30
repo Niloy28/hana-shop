@@ -1,13 +1,15 @@
+import { addCartItem } from "@/app/actions/cartActions";
+import AddToCartButton from "@/components/AddToCartButton";
 import ProductImageSlider from "@/components/products/ProductImageSlider";
-import { Button } from "@/components/ui/button";
 import prisma from "@/lib/db";
-import { ShoppingCartIcon } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 const ProductPage = async ({
   params,
 }: Readonly<{ params: { id: string } }>) => {
+  const addProductToCart = addCartItem.bind(null, params.id);
+
   const product = await prisma.product.findUnique({
     where: {
       id: params.id,
@@ -28,12 +30,13 @@ const ProductPage = async ({
                 {product.description}
               </ReactMarkdown>
             </p>
-            <Button className="mb-8 mt-auto place-self-end rounded-lg bg-primary">
-              <div className="flex items-center justify-center gap-2">
-                <ShoppingCartIcon />
-                <p>Add to Cart</p>
-              </div>
-            </Button>
+
+            <form
+              action={addProductToCart}
+              className="mb-8 mt-auto place-self-end"
+            >
+              <AddToCartButton />
+            </form>
           </div>
         </>
       )}
