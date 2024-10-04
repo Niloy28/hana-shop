@@ -4,7 +4,9 @@ import { redis } from "@/lib/redis";
 import { toCurrencyString } from "@/lib/utils";
 import { CartData } from "@/types/cart-data";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { ShoppingBagIcon, ShoppingCartIcon } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 const CartPage = async () => {
@@ -18,12 +20,21 @@ const CartPage = async () => {
   const cart: CartData | null = await redis.get(`cart-${user.id}`);
 
   return (
-    <div className="mx-auto mt-10 min-h-[55vh] max-w-2xl">
+    <div className="mx-auto mt-10 flex min-h-[55vh] w-full max-w-2xl items-center justify-center">
       {!cart || cart.items.length === 0 ? (
-        <div className="mx-auto">
-          <h1 className="text-center text-2xl font-bold">
+        <div className="mx-auto flex flex-col items-center justify-center gap-y-4">
+          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary/10">
+            <ShoppingCartIcon className="h-10 w-10 text-primary" />
+          </div>
+          <h2 className="text-center text-2xl font-bold">
             Your shopping cart is empty!
-          </h1>
+          </h2>
+          <p>Add items to your shopping cart now!</p>
+          <Link href="/products">
+            <Button className="w-full bg-primary">
+              <ShoppingBagIcon /> Continue Shopping
+            </Button>
+          </Link>
         </div>
       ) : (
         <div className="flex w-full flex-col gap-4">
