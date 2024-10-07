@@ -1,11 +1,12 @@
 import { addCartItem } from "@/app/actions/cartActions";
-import { toCurrencyString } from "@/lib/utils";
+import { enumToString, toCurrencyString } from "@/lib/utils";
 import { Product } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import AddToCartButton from "../AddToCartButton";
+import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
 import {
   Carousel,
@@ -54,9 +55,15 @@ const ProductCard = ({ product }: Readonly<{ product: Product }>) => {
             </div>
           </Link>
 
-          <form action={addProductToCart}>
-            <AddToCartButton disabled={product.productStatus !== "Active"} />
-          </form>
+          {product.productStatus !== "Active" ? (
+            <Button className="rounded-lg bg-primary">
+              {enumToString(product.productStatus)}
+            </Button>
+          ) : (
+            <form action={addProductToCart}>
+              <AddToCartButton disabled={product.productStatus !== "Active"} />
+            </form>
+          )}
         </div>
       </CardContent>
     </Card>
