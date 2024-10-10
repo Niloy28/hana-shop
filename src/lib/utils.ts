@@ -57,3 +57,5 @@ export const createProductData = (formData: FormData) => {
     },
   };
 };
+
+export const debugSleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
