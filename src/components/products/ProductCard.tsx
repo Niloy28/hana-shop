@@ -19,27 +19,27 @@ const ProductCard = ({ product }: Readonly<{ product: Product }>) => {
   const addProductToCart = addCartItem.bind(null, product.id);
 
   return (
-    <Card>
-      <CardContent className="p-0 pb-2">
-        <div className="flex flex-col items-center justify-center">
-          <Carousel className="h-full w-full rounded-lg object-cover">
-            <CarouselContent className="ml-0">
-              {product.images.map((image, index) => (
-                <Image
-                  key={index}
-                  src={image}
-                  alt={product.name}
-                  width={600}
-                  height={600}
-                  className="h-full w-full rounded-lg object-cover"
-                />
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="ml-16" />
-            <CarouselNext className="mr-16" />
-          </Carousel>
+    <Card className="max-h-full">
+      <CardContent className="max-h-full p-0">
+        <Carousel className="h-2/3 w-full rounded-lg object-cover">
+          <CarouselContent className="ml-0">
+            {product.images.map((image, index) => (
+              <Image
+                key={index}
+                src={image}
+                alt={product.name}
+                width={400}
+                height={400}
+                className="h-full w-full rounded-lg object-contain"
+              />
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="ml-16" />
+          <CarouselNext className="mr-16" />
+        </Carousel>
+        <div className="flex h-1/3 w-full flex-col items-center justify-center">
           <Link
-            className="flex w-full flex-col items-center justify-center gap-2"
+            className="flex flex-col items-center justify-center"
             href={`/products/${product.id}`}
           >
             <div className="px-1 text-center text-lg md:text-xl">
@@ -60,7 +60,7 @@ const ProductCard = ({ product }: Readonly<{ product: Product }>) => {
               {enumToString(product.productStatus)}
             </Button>
           ) : (
-            <form action={addProductToCart}>
+            <form className="pb-2" action={addProductToCart}>
               <AddToCartButton disabled={product.productStatus !== "Active"} />
             </form>
           )}
