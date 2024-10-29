@@ -1,11 +1,10 @@
-import { deleteCartItem } from "@/app/actions/cartActions";
+import CartListItem from "@/components/cart/CartListItem";
 import { Button } from "@/components/ui/button";
 import { redis } from "@/lib/redis";
 import { toCurrencyString } from "@/lib/utils";
 import { CartData } from "@/types/cart-data";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { ShoppingBagIcon, ShoppingCartIcon } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -39,35 +38,7 @@ const CartPage = async () => {
       ) : (
         <div className="flex w-full flex-col gap-4">
           {cart.items.map((item) => (
-            <div key={item.id} className="flex">
-              <div className="relative h-24 w-24 sm:w-32">
-                <Image
-                  className="rounded-md object-cover"
-                  fill
-                  src={item.image}
-                  alt={item.name}
-                />
-              </div>
-              <div className="ml-5 flex w-full justify-between font-medium">
-                <p>{item.name}</p>
-                <div className="flex h-full flex-col justify-between">
-                  <div className="flex items-center gap-x-2">
-                    <p>{item.quantity} x</p>
-                    <p>{toCurrencyString(item.price)}</p>
-                  </div>
-
-                  <form action={deleteCartItem} className="text-end">
-                    <input type="hidden" name="productID" value={item.id} />
-                    <button
-                      type="submit"
-                      className="text-end text-primary hover:cursor-pointer"
-                    >
-                      Delete
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </div>
+            <CartListItem key={item.id} item={item} />
           ))}
           <div className="flex items-center justify-between text-lg font-semibold">
             <p>Subtotal:</p>
