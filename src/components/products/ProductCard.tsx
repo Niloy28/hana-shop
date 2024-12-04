@@ -20,19 +20,19 @@ const ProductCard = ({ product }: Readonly<{ product: Product }>) => {
   const addProductToCart = addCartItem.bind(null, product.id);
 
   return (
-    <Card className="max-h-full">
-      <CardContent className="max-h-full p-0">
-        <Carousel className="h-2/3 w-full rounded-lg object-cover">
+    <Card className="h-full">
+      <CardContent className="flex h-full flex-col justify-between p-0">
+        <Carousel className="ml-0 w-full rounded-lg">
           <CarouselContent className="ml-0">
             {product.images.map((image, index) => (
-              <CarouselItem key={index} className="relative">
+              <CarouselItem key={index} className="w-full pl-0">
                 <Image
                   key={index}
                   src={image}
                   alt={product.name}
                   width={400}
-                  height={400}
-                  className="h-full w-full rounded-lg object-contain"
+                  height={250}
+                  className="m-auto h-[250px] w-full rounded-lg object-fill"
                 />
               </CarouselItem>
             ))}
@@ -52,7 +52,7 @@ const ProductCard = ({ product }: Readonly<{ product: Product }>) => {
             <div className="px-1 text-center text-lg md:text-xl">
               {product.name}
             </div>
-            <div className="line-clamp-3 px-1 text-center text-base text-muted-foreground md:text-lg">
+            <div className="line-clamp-2 px-1 text-center text-base text-muted-foreground md:text-lg">
               <ReactMarkdown remarkPlugins={[remarkGfm]}>
                 {product.description}
               </ReactMarkdown>
@@ -67,7 +67,7 @@ const ProductCard = ({ product }: Readonly<{ product: Product }>) => {
               {enumToString(product.productStatus)}
             </Button>
           ) : (
-            <form className="pb-2" action={addProductToCart}>
+            <form className="mb-4 pb-1" action={addProductToCart}>
               <AddToCartButton disabled={product.productStatus !== "Active"} />
             </form>
           )}
