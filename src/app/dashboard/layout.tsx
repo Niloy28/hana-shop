@@ -1,9 +1,9 @@
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import React from "react";
 
 // User Imports
 import NavBar from "@/components/navbar/NavBar";
+import { getUserSession } from "@/lib/server-utils";
 import { verifyAdmin } from "@/lib/utils";
 import { LinkData } from "@/types/link-data";
 
@@ -31,9 +31,7 @@ const DashboardLayout = async ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const { getUser } = getKindeServerSession();
-
-  const user = await getUser();
+  const user = await getUserSession();
 
   if (!user || !verifyAdmin(user.email)) {
     redirect("/");

@@ -1,13 +1,12 @@
 "use server";
 
 import prisma from "@/lib/db";
+import { getUserSession } from "@/lib/server-utils";
 import { createProductData, verifyAdmin } from "@/lib/utils";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 
 export const createProduct = async (prevState: unknown, formData: FormData) => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const user = await getUserSession();
 
   if (!user || !verifyAdmin(user.email)) {
     return redirect("/");
@@ -27,8 +26,7 @@ export const createProduct = async (prevState: unknown, formData: FormData) => {
 };
 
 export const updateProduct = async (prevState: unknown, formData: FormData) => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const user = await getUserSession();
 
   if (!user || !verifyAdmin(user.email)) {
     return redirect("/");
@@ -51,8 +49,7 @@ export const updateProduct = async (prevState: unknown, formData: FormData) => {
 };
 
 export const deleteProduct = async (formData: FormData) => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const user = await getUserSession();
 
   if (!user || !verifyAdmin(user.email)) {
     return redirect("/");

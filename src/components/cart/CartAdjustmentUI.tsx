@@ -1,7 +1,7 @@
 "use client";
 
-import { decreaseCartItem, increaseCartItem } from "@/app/actions/cartActions";
-import { CircleMinus, CirclePlus, Loader2, LoaderPinwheel } from "lucide-react";
+import { changeCartItemCount } from "@/app/actions/cartActions";
+import { CircleMinus, CirclePlus, Loader2 } from "lucide-react";
 import { useFormStatus } from "react-dom";
 
 const CartAdjustmentUI = ({
@@ -9,6 +9,9 @@ const CartAdjustmentUI = ({
   quantity,
 }: Readonly<{ id: string; quantity: number }>) => {
   const { pending } = useFormStatus();
+
+  const increaseCartItem = changeCartItemCount.bind(null, "Increase");
+  const decreaseCartItem = changeCartItemCount.bind(null, "Decrease");
 
   return (
     <div className="flex items-start justify-between">

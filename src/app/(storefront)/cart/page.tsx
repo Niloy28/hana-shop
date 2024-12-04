@@ -1,16 +1,15 @@
 import CartListItem from "@/components/cart/CartListItem";
 import { Button } from "@/components/ui/button";
 import { redis } from "@/lib/redis";
+import { getUserSession } from "@/lib/server-utils";
 import { toCurrencyString } from "@/lib/utils";
 import { CartData } from "@/types/cart-data";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { ShoppingBagIcon, ShoppingCartIcon } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
 const CartPage = async () => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const user = await getUserSession();
 
   if (!user) {
     redirect("/");

@@ -1,15 +1,14 @@
 "use server";
 
 import prisma from "@/lib/db";
+import { getUserSession } from "@/lib/server-utils";
 import { verifyAdmin } from "@/lib/utils";
 import { bannerSchema } from "@/lib/zodSchema";
 import { parseWithZod } from "@conform-to/zod";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 
 export const createBanner = async (prevState: unknown, formData: FormData) => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const user = await getUserSession();
 
   if (!user || !verifyAdmin(user.email)) {
     return redirect("/");
@@ -34,8 +33,7 @@ export const createBanner = async (prevState: unknown, formData: FormData) => {
 };
 
 export const deleteBanner = async (formData: FormData) => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const user = await getUserSession();
 
   if (!user || !verifyAdmin(user.email)) {
     return redirect("/");

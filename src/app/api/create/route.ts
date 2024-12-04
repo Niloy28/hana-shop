@@ -2,13 +2,12 @@ export const dynamic = "force-dynamic";
 
 import { env } from "@/env/client";
 import prisma from "@/lib/db";
+import { getUserSession } from "@/lib/server-utils";
 import { verifyAdmin } from "@/lib/utils";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { NextResponse } from "next/server";
 
 export const GET = async () => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const user = await getUserSession();
 
   if (!user || !user.id) {
     throw new Error("User not found");

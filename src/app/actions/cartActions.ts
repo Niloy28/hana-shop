@@ -2,14 +2,13 @@
 
 import prisma from "@/lib/db";
 import { redis } from "@/lib/redis";
+import { getUserSession } from "@/lib/server-utils";
 import { CartData } from "@/types/cart-data";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export const addCartItem = async (productID: string) => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const user = await getUserSession();
 
   if (!user) {
     return redirect("/");
@@ -75,9 +74,13 @@ export const addCartItem = async (productID: string) => {
   revalidatePath("/", "layout");
 };
 
-export const increaseCartItem = async (formData: FormData) => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+type ItemChange = "Increase" | "Decrease";
+
+export const changeCartItemCount = async (
+  change: ItemChange,
+  formData: FormData,
+) => {
+  const user = await getUserSession();
 
   if (!user) {
     redirect("/");
@@ -91,7 +94,7 @@ export const increaseCartItem = async (formData: FormData) => {
       userID: user.id,
       items: cart.items.map((item) => {
         if (item.id === productID) {
-          item.quantity += 1;
+          item.quantity += change == "Increase" ? 1 : -1;
         }
 
         return item;
@@ -104,38 +107,8 @@ export const increaseCartItem = async (formData: FormData) => {
   revalidatePath("/cart");
 };
 
-export const decreaseCartItem = async (formData: FormData) => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
-
-  if (!user) {
-    redirect("/");
-  }
-
-  const productID = formData.get("productID");
-  let cart: CartData | null = await redis.get(`cart-${user.id}`);
-
-  if (cart && cart.items) {
-    const updatedCart: CartData = {
-      userID: user.id,
-      items: cart.items.map((item) => {
-        if (item.id === productID) {
-          item.quantity -= 1;
-        }
-
-        return item;
-      }),
-    };
-
-    await redis.set(`cart-${user.id}`, updatedCart);
-
-    revalidatePath("/cart");
-  }
-};
-
 export const deleteCartItem = async (formData: FormData) => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const user = await getUserSession();
 
   if (!user) {
     redirect("/");

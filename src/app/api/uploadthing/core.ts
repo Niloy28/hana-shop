@@ -1,5 +1,5 @@
+import { getUserSession } from "@/lib/server-utils";
 import { verifyAdmin } from "@/lib/utils";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
 
@@ -12,8 +12,7 @@ export const ourFileRouter = {
     // Set permissions and file types for this FileRoute
     .middleware(async ({ req }) => {
       // This code runs on your server before upload
-      const { getUser } = getKindeServerSession();
-      const user = await getUser();
+      const user = await getUserSession();
 
       // If you throw, the user will not be able to upload
       if (!user || !verifyAdmin(user.email))
@@ -36,8 +35,7 @@ export const ourFileRouter = {
   })
     .middleware(async ({ req }) => {
       // This code runs on your server before upload
-      const { getUser } = getKindeServerSession();
-      const user = await getUser();
+      const user = await getUserSession();
 
       // If you throw, the user will not be able to upload
       if (!user || !verifyAdmin(user.email))
