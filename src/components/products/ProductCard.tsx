@@ -11,6 +11,7 @@ import { Card, CardContent } from "../ui/card";
 import {
   Carousel,
   CarouselContent,
+  CarouselItem,
   CarouselNext,
   CarouselPrevious,
 } from "../ui/carousel";
@@ -24,18 +25,24 @@ const ProductCard = ({ product }: Readonly<{ product: Product }>) => {
         <Carousel className="h-2/3 w-full rounded-lg object-cover">
           <CarouselContent className="ml-0">
             {product.images.map((image, index) => (
-              <Image
-                key={index}
-                src={image}
-                alt={product.name}
-                width={400}
-                height={400}
-                className="h-full w-full rounded-lg object-contain"
-              />
+              <CarouselItem key={index} className="relative">
+                <Image
+                  key={index}
+                  src={image}
+                  alt={product.name}
+                  width={400}
+                  height={400}
+                  className="h-full w-full rounded-lg object-contain"
+                />
+              </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="ml-16" />
-          <CarouselNext className="mr-16" />
+          {product.images.length > 1 && (
+            <>
+              <CarouselPrevious className="ml-16" />
+              <CarouselNext className="mr-16" />
+            </>
+          )}
         </Carousel>
         <div className="flex h-1/3 w-full flex-col items-center justify-center">
           <Link
