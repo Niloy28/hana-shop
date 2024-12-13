@@ -1,4 +1,4 @@
-import { ourFileRouter } from "@/app/api/uploadthing/core";
+import { uploadRouter } from "@/app/api/uploadthing/core";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import type { Metadata } from "next";
@@ -27,7 +27,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
+          <NextSSRPlugin routerConfig={extractRouterConfig(uploadRouter)} />
           {children}
         </ThemeProvider>
       </body>

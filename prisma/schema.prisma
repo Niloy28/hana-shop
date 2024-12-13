@@ -42,6 +42,13 @@ model Banner {
   createdAt DateTime @default(now())
 }
 
+model Inquiry {
+  id      String @id @default(uuid())
+  name    String
+  email   String
+  inquiry String
+}
+
 enum ProductStatus {
   Active
   Out_Of_Stock
