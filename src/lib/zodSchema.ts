@@ -15,3 +15,9 @@ export const bannerSchema = z.object({
   title: z.string().min(1),
   source: z.string().min(1),
 });
+
+export const inquirySchema = z.object({
+  name: z.string().min(1),
+  email: z.string().email(),
+  inquiry: z.string().min(1),
+});
