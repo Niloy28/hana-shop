@@ -5,6 +5,25 @@ import prisma from "@/lib/db";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export const generateMetadata = async ({ params }: Props) => {
+  const id = (await params).id;
+
+  const product = await prisma.product.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  return {
+    title: `${product?.name} | Hana Shop (花屋)`,
+    description: product?.description,
+  };
+};
+
 const ProductPage = async ({
   params,
 }: Readonly<{ params: { id: string } }>) => {

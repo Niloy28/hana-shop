@@ -1,5 +1,11 @@
 import ProductCard from "@/components/products/ProductCard";
 import prisma from "@/lib/db";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "All Products | Hana Shop (花屋)",
+  description: "All available products",
+};
 
 const ProductsPage = async () => {
   const products = await prisma.product.findMany({

@@ -3,6 +3,19 @@ import prisma from "@/lib/db";
 import { capitalizeFirstLetter } from "@/lib/utils";
 import { Category } from "@prisma/client";
 
+type Props = {
+  params: Promise<{ category: string }>;
+};
+
+export const generateMetadata = async ({ params }: Props) => {
+  const category = (await params).category;
+
+  return {
+    title: `${capitalizeFirstLetter(category)} Flowers | Hana Shop (花屋)`,
+    description: `Products from ${category} category`,
+  };
+};
+
 export default async function ProductCategoryPage({
   params,
 }: Readonly<{

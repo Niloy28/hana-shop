@@ -5,8 +5,14 @@ import { getUserSession } from "@/lib/server-utils";
 import { toCurrencyString } from "@/lib/utils";
 import { CartData } from "@/types/cart-data";
 import { ShoppingBagIcon, ShoppingCartIcon } from "lucide-react";
+import { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Your Cart | Hana Shop (花屋)",
+  description: "Confirm your cart contents",
+};
 
 const CartPage = async () => {
   const user = await getUserSession();

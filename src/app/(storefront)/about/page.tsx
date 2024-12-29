@@ -1,4 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Us | Hana Shop (花屋)",
+  description: "A shop to buy flowers for your loved ones.",
+};
 
 const AboutPage = () => {
   return (

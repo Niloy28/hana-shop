@@ -1,6 +1,12 @@
 import { sendCustomerInquiry } from "@/app/actions/contactActions";
 import ContactForm from "@/components/ContactForm";
 import { Card } from "@/components/ui/card";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact Us | Hana Shop (花屋)",
+  description: "A shop to buy flowers for your loved ones.",
+};
 
 const ContactPage = () => {
   return (

@@ -6,7 +6,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { inquirySchema } from "@/lib/zodSchema";
 import { SubmissionResult, useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
-import { useState } from "react";
 import { useFormState } from "react-dom";
 import SubmitButton from "./SubmitButton";
 
@@ -18,12 +17,6 @@ const ContactForm = ({
     formData: FormData,
   ) => Promise<SubmissionResult<string[]> | undefined>;
 }>) => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
   const [latestState, action] = useFormState(formAction, undefined);
   const [form, fields] = useForm({
     defaultValue: {
