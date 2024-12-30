@@ -1,4 +1,8 @@
 import { uploadRouter } from "@/app/api/uploadthing/core";
+import NavBar from "@/components/navbar/NavBar";
+import { dashboardLinks, homePageLinks } from "@/lib/constants";
+import { getUserSession } from "@/lib/server-utils";
+import { verifyAdmin } from "@/lib/utils";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import type { Metadata } from "next";
@@ -14,23 +18,38 @@ export const metadata: Metadata = {
   description: "A shop to buy flowers for your loved ones.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const user = await getUserSession();
+  let navLinks;
+
+  if (!user || !verifyAdmin(user.email)) {
+    navLinks = homePageLinks;
+  } else {
+    navLinks = dashboardLinks;
+  }
+
   return (
     <html lang="en">
       <body className={inter.className}>
+        <NextTopLoader height={5} />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
+          <header className="mx-12 my-8 flex justify-center">
+            <NavBar links={navLinks} authUser={user} />
+          </header>
           <NextTopLoader />
           <NextSSRPlugin routerConfig={extractRouterConfig(uploadRouter)} />
-          {children}
+          <div className="mx-4 mb-2 mt-12 px-2 sm:mx-12 sm:mb-8 sm:mt-16 sm:px-4">
+            <main>{children}</main>
+          </div>
         </ThemeProvider>
       </body>
     </html>

@@ -30,7 +30,7 @@ const NavBar = async ({
   }
 
   return (
-    <nav className="sticky mx-4 my-2 rounded-full px-4 py-2 outline outline-1">
+    <nav className="fixed top-0 z-50 mx-4 my-2 w-11/12 rounded-full bg-primary-foreground px-4 py-2 outline outline-1">
       <div className="flex w-full flex-1 items-center justify-between">
         <Link className="ml-4 px-4" href="/">
           <Logo />
