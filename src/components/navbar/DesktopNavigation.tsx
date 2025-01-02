@@ -13,7 +13,7 @@ const DesktopNavigation = ({
   const pathName = usePathname();
 
   return (
-    <ul className="hidden justify-evenly uppercase md:flex md:text-sm">
+    <ul className="hidden justify-evenly capitalize md:flex md:text-sm">
       {links.map((link) => (
         <NavBarLink
           key={link.name}
