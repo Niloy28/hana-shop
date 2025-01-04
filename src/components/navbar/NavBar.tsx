@@ -6,6 +6,7 @@ import { redis } from "@/lib/redis";
 import { verifyAdmin } from "@/lib/utils";
 import { CartData } from "@/types/cart-data";
 import { LinkData } from "@/types/link-data";
+import { cookies } from "next/headers";
 import Logo from "../Logo";
 import ShoppingCartIcon from "../ShoppingCartIcon";
 import AccountDropdown from "./AccountDropdown";
@@ -27,6 +28,15 @@ const NavBar = async ({
     if (cart && cart.items) {
       cartTotal = cart.items.reduce((sum, item) => sum + item.quantity, 0);
     }
+  } else {
+    const cartCookie = (await cookies()).get("cart");
+
+    if (cartCookie) {
+      cartTotal = (JSON.parse(cartCookie.value) as CartData).items.reduce(
+        (sum, item) => sum + item.quantity,
+        0,
+      );
+    }
   }
 
   return (
@@ -38,7 +48,7 @@ const NavBar = async ({
         <div className="space-2 flex">
           <DesktopNavigation links={links} />
           <MobileNavigation links={links} />
-          {authUser && <ShoppingCartIcon cartTotal={cartTotal} />}
+          <ShoppingCartIcon cartTotal={cartTotal} />
           <AccountDropdown
             authUser={authUser}
             isAdmin={verifyAdmin(authUser?.email)}

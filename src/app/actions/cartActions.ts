@@ -5,17 +5,9 @@ import { redis } from "@/lib/redis";
 import { getUserSession } from "@/lib/server-utils";
 import { CartData } from "@/types/cart-data";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 
 export const addCartItem = async (productID: string) => {
-  const user = await getUserSession();
-
-  if (!user) {
-    return redirect("/");
-  }
-
-  const cart: CartData | null = await redis.get(`cart-${user.id}`);
-
   const product = await prisma.product.findUnique({
     where: {
       id: productID,
@@ -32,34 +24,40 @@ export const addCartItem = async (productID: string) => {
     throw new Error("Product not found");
   }
 
-  let myCart = {} as CartData;
+  let myCart = {
+    userID: "local-00000",
+    items: [],
+  } as CartData;
+  let savedCart = {} as CartData;
 
-  if (!cart || !cart.items) {
-    myCart = {
-      userID: user.id,
-      items: [
-        {
+  const user = await getUserSession();
+  if (!user) {
+    // get existing local cart (if available) and merge new cart
+    const cookieRawCart = (await cookies()).get("cart");
+    if (cookieRawCart) {
+      savedCart = JSON.parse(cookieRawCart.value) as CartData;
+      let itemFound = false;
+
+      myCart.items = savedCart.items.map((item) => {
+        if (item.id === product.id) {
+          itemFound = true;
+          item.quantity += 1;
+        }
+
+        return item;
+      });
+
+      if (!itemFound) {
+        myCart.items = [...savedCart.items];
+        myCart.items.push({
           id: product.id,
           name: product.name,
-          image: product.images[0],
           price: product.price,
+          image: product.images[0],
           quantity: 1,
-        },
-      ],
-    };
-  } else {
-    let itemFound = false;
-
-    myCart.items = cart.items.map((item) => {
-      if (item.id === product.id) {
-        itemFound = true;
-        item.quantity += 1;
+        });
       }
-
-      return item;
-    });
-
-    if (!itemFound) {
+    } else {
       myCart.items.push({
         id: product.id,
         name: product.name,
@@ -68,9 +66,50 @@ export const addCartItem = async (productID: string) => {
         quantity: 1,
       });
     }
+
+    (await cookies()).set("cart", JSON.stringify(myCart));
+  } else {
+    const cart: CartData | null = await redis.get(`cart-${user.id}`);
+
+    if (!cart || !cart.items) {
+      myCart = {
+        userID: user.id,
+        items: [
+          {
+            id: product.id,
+            name: product.name,
+            image: product.images[0],
+            price: product.price,
+            quantity: 1,
+          },
+        ],
+      };
+    } else {
+      let itemFound = false;
+
+      myCart.items = cart.items.map((item) => {
+        if (item.id === product.id) {
+          itemFound = true;
+          item.quantity += 1;
+        }
+
+        return item;
+      });
+
+      if (!itemFound) {
+        myCart.items.push({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          image: product.images[0],
+          quantity: 1,
+        });
+      }
+    }
+
+    await redis.set(`cart-${user.id}`, myCart);
   }
 
-  await redis.set(`cart-${user.id}`, myCart);
   revalidatePath("/", "layout");
 };
 
@@ -81,27 +120,30 @@ export const changeCartItemCount = async (
   formData: FormData,
 ) => {
   const user = await getUserSession();
+  const productID = formData.get("productID");
+  let savedCart = {} as CartData;
 
   if (!user) {
-    redirect("/");
+    // update local cart
+    const cookieRawCart = (await cookies()).get("cart");
+    savedCart = JSON.parse(cookieRawCart!.value) as CartData;
+  } else {
+    // update redis cart
+    savedCart = (await redis.get(`cart-${user.id}`)) as CartData;
   }
 
-  const productID = formData.get("productID");
-  let cart: CartData | null = await redis.get(`cart-${user.id}`);
+  savedCart.items = savedCart.items.map((item) => {
+    if (item.id === productID) {
+      item.quantity += change == "Increase" ? 1 : -1;
+    }
 
-  if (cart && cart.items) {
-    const updatedCart: CartData = {
-      userID: user.id,
-      items: cart.items.map((item) => {
-        if (item.id === productID) {
-          item.quantity += change == "Increase" ? 1 : -1;
-        }
+    return item;
+  });
 
-        return item;
-      }),
-    };
-
-    await redis.set(`cart-${user.id}`, updatedCart);
+  if (!user) {
+    (await cookies()).set("cart", JSON.stringify(savedCart));
+  } else {
+    await redis.set(`cart-${user.id}`, savedCart);
   }
 
   revalidatePath("/cart");
@@ -109,21 +151,24 @@ export const changeCartItemCount = async (
 
 export const deleteCartItem = async (formData: FormData) => {
   const user = await getUserSession();
+  const productID = formData.get("productID");
+  let savedCart = {} as CartData;
 
   if (!user) {
-    redirect("/");
+    // update local cart
+    const cookieRawCart = (await cookies()).get("cart");
+    savedCart = JSON.parse(cookieRawCart!.value) as CartData;
+  } else {
+    // update redis cart
+    savedCart = (await redis.get(`cart-${user.id}`)) as CartData;
   }
 
-  const productID = formData.get("productID");
-  let cart: CartData | null = await redis.get(`cart-${user.id}`);
+  savedCart.items = savedCart.items.filter((item) => item.id !== productID);
 
-  if (cart && cart.items) {
-    const updatedCart: CartData = {
-      userID: user.id,
-      items: cart.items.filter((item) => item.id !== productID),
-    };
-
-    await redis.set(`cart-${user.id}`, updatedCart);
+  if (!user) {
+    (await cookies()).set("cart", JSON.stringify(savedCart));
+  } else {
+    await redis.set(`cart-${user.id}`, savedCart);
   }
 
   revalidatePath("/cart");

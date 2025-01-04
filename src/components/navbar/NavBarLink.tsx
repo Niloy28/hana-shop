@@ -22,7 +22,7 @@ const NavBarLink = ({
   return (
     <>
       {type === "list" ? (
-        <li className={computedClasses}>{innerContent}</li>
+        <p className={computedClasses}>{innerContent}</p>
       ) : (
         <span role="menuitem" className={computedClasses}>
           {innerContent}

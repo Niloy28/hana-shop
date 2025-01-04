@@ -6,8 +6,8 @@ import { toCurrencyString } from "@/lib/utils";
 import { CartData } from "@/types/cart-data";
 import { ShoppingBagIcon, ShoppingCartIcon } from "lucide-react";
 import { Metadata } from "next";
+import { cookies } from "next/headers";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Your Cart | Hana Shop (花屋)",
@@ -15,13 +15,18 @@ export const metadata: Metadata = {
 };
 
 const CartPage = async () => {
+  let cart: CartData | null = null;
   const user = await getUserSession();
 
-  if (!user) {
-    redirect("/");
-  }
+  if (user) {
+    cart = await redis.get(`cart-${user.id}`);
+  } else {
+    const cartCookie = (await cookies()).get("cart");
 
-  const cart: CartData | null = await redis.get(`cart-${user.id}`);
+    if (cartCookie) {
+      cart = JSON.parse(cartCookie.value) as CartData;
+    }
+  }
 
   return (
     <div className="mx-auto mt-10 flex min-h-[55vh] w-full max-w-2xl items-center justify-center">

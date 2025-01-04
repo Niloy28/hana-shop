@@ -35,7 +35,6 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <NextTopLoader height={5} />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
