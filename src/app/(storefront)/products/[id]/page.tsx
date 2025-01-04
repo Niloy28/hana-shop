@@ -5,12 +5,10 @@ import prisma from "@/lib/db";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-type Props = {
-  params: Promise<{ id: string }>;
-};
-
-export const generateMetadata = async ({ params }: Props) => {
-  const id = (await params).id;
+export const generateMetadata = async ({
+  params,
+}: Readonly<{ params: { id: string } }>) => {
+  const id = params.id;
 
   const product = await prisma.product.findUnique({
     where: {
