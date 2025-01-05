@@ -3,14 +3,30 @@ import ProductForm from "@/components/dashboard/products/ProductForm";
 import prisma from "@/lib/db";
 import { notFound } from "next/navigation";
 
-const ProductEditPage = async ({
-  params,
-}: Readonly<{
-  params: { id: string };
-}>) => {
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export const generateMetadata = async ({ params }: Props) => {
+  const id = (await params).id;
+
   const product = await prisma.product.findUnique({
     where: {
-      id: params.id,
+      id,
+    },
+  });
+
+  return {
+    title: `Edit ${product!.name} | Hana Shop (花屋)`,
+    description: `Edit ${product!.name}`,
+  };
+};
+
+const ProductEditPage = async ({ params }: Props) => {
+  const id = (await params).id;
+  const product = await prisma.product.findUnique({
+    where: {
+      id,
     },
   });
 

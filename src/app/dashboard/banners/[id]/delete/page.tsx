@@ -9,13 +9,21 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Metadata } from "next";
 import Link from "next/link";
 
-const BannerDeletePage = ({
+export const metadata: Metadata = {
+  title: "Delete Banner | Hana Shop (花屋)",
+  description: "Delete site banner image",
+};
+
+const BannerDeletePage = async ({
   params,
-}: Readonly<{
-  params: { id: string };
-}>) => {
+}: {
+  params: Promise<{ id: string }>;
+}) => {
+  const id = (await params).id;
+
   return (
     <div className="flex h-[80vh] w-full items-center justify-center">
       <Card className="m-auto w-1/2 max-w-xl">
@@ -31,7 +39,7 @@ const BannerDeletePage = ({
             <Link href="/dashboard/banners">Cancel</Link>
           </Button>
           <form action={deleteBanner}>
-            <Input type="hidden" name="bannerID" value={params.id} />
+            <Input type="hidden" name="bannerID" value={id} />
             <SubmitButton variant="destructive">Delete</SubmitButton>
           </form>
         </CardFooter>

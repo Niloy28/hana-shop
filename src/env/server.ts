@@ -13,6 +13,10 @@ export const env = createEnv({
     KINDE_POST_LOGIN_REDIRECT_URL: z.string().min(1),
     ADMIN_EMAIL: z.string().min(1),
     UPLOADTHING_TOKEN: z.string().min(1),
+    UPSTASH_REDIS_REST_URL: z.string().min(1),
+    UPSTASH_REDIS_REST_TOKEN: z.string().min(1),
+    STRIPE_PUBLISHABLE_KEY: z.string().min(1),
+    STRIPE_CLIENT_SECRET: z.string().min(1),
   },
   experimental__runtimeEnv: process.env,
 });

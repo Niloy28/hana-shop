@@ -16,7 +16,13 @@ import {
 } from "@/components/ui/table";
 import prisma from "@/lib/db";
 import { PlusCircle } from "lucide-react";
+import { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Product Dashboard | Hana Shop (花屋)",
+  description: "Manage site products",
+};
 
 const ProductsPage = async () => {
   const products = await prisma.product.findMany({

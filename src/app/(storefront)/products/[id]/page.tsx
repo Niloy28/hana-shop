@@ -5,10 +5,12 @@ import prisma from "@/lib/db";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-export const generateMetadata = async ({
-  params,
-}: Readonly<{ params: { id: string } }>) => {
-  const id = params.id;
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export const generateMetadata = async ({ params }: Props) => {
+  const id = (await params).id;
 
   const product = await prisma.product.findUnique({
     where: {
@@ -22,14 +24,13 @@ export const generateMetadata = async ({
   };
 };
 
-const ProductPage = async ({
-  params,
-}: Readonly<{ params: { id: string } }>) => {
-  const addProductToCart = addCartItem.bind(null, params.id);
+const ProductPage = async ({ params }: Props) => {
+  const id = (await params).id;
+  const addProductToCart = addCartItem.bind(null, id);
 
   const product = await prisma.product.findUnique({
     where: {
-      id: params.id,
+      id,
     },
   });
 

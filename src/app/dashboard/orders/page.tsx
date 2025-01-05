@@ -14,6 +14,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { OrderStatus } from "@/types/order-data";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Orders | Hana Shop (花屋)",
+  description: "Manage customer orders",
+};
 
 const OrdersPage = () => {
   return (

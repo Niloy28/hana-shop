@@ -16,24 +16,19 @@ export const generateMetadata = async ({ params }: Props) => {
   };
 };
 
-export default async function ProductCategoryPage({
-  params,
-}: Readonly<{
-  params: { category: string };
-}>) {
+export default async function ProductCategoryPage({ params }: Props) {
+  const category = (await params).category;
   const products = await prisma.product.findMany({
     where: {
       category:
-        Category[
-          capitalizeFirstLetter(params.category) as keyof typeof Category
-        ],
+        Category[capitalizeFirstLetter(category) as keyof typeof Category],
     },
   });
 
   return (
     <div className="m-2 p-8">
       <h2 className="mb-2 text-2xl font-bold capitalize tracking-tight">
-        Shop for {params.category} flowers
+        Shop for {category} flowers
       </h2>
       {products.length > 0 && (
         <div className="grid grid-cols-6 gap-6 sm:grid-cols-2 lg:grid-cols-3">
