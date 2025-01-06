@@ -1,11 +1,12 @@
 export const dynamic = "force-dynamic";
 
-import { env } from "@/env/client";
+import { env } from "@/env/server";
 import prisma from "@/lib/db";
 import { getUserSession } from "@/lib/server-utils";
 import { verifyAdmin } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
+// Post Login API route
 export const GET = async () => {
   const user = await getUserSession();
 
@@ -34,8 +35,8 @@ export const GET = async () => {
 
   const baseUrl =
     process.env.NODE_ENV === "production"
-      ? env.NEXT_PUBLIC_PROD_BASE_URL
-      : env.NEXT_PUBLIC_DEV_BASE_URL;
+      ? env.PROD_BASE_URL
+      : env.DEV_BASE_URL;
 
   return NextResponse.redirect(
     `${baseUrl}${verifyAdmin(user.email) ? "/dashboard" : ""}`,

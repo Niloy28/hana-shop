@@ -3,6 +3,8 @@ import { z } from "zod";
 
 export const env = createEnv({
   server: {
+    DEV_BASE_URL: z.string().min(1),
+    PROD_BASE_URL: z.string().min(1),
     DATABASE_URL: z.string().url(),
     DIRECT_URL: z.string().url(),
     KINDE_CLIENT_ID: z.string().min(1),
@@ -15,7 +17,6 @@ export const env = createEnv({
     UPLOADTHING_TOKEN: z.string().min(1),
     UPSTASH_REDIS_REST_URL: z.string().min(1),
     UPSTASH_REDIS_REST_TOKEN: z.string().min(1),
-    STRIPE_PUBLISHABLE_KEY: z.string().min(1),
     STRIPE_CLIENT_SECRET: z.string().min(1),
   },
   experimental__runtimeEnv: process.env,
