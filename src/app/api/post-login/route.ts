@@ -39,6 +39,6 @@ export const GET = async () => {
       : env.DEV_BASE_URL;
 
   return NextResponse.redirect(
-    `${baseUrl}${verifyAdmin(user.email) ? "/dashboard" : ""}`,
+    `${baseUrl}${verifyAdmin(user.email) ? "/dashboard" : "/"}`,
   );
 };
