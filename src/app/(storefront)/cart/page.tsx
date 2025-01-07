@@ -1,4 +1,5 @@
 import CartListItem from "@/components/cart/CartListItem";
+import CheckoutButton from "@/components/CheckoutButton";
 import { Button } from "@/components/ui/button";
 import { redis } from "@/lib/redis";
 import { getUserSession } from "@/lib/server-utils";
@@ -28,6 +29,11 @@ const CartPage = async () => {
     }
   }
 
+  const subTotal =
+    cart && cart.items.length > 0
+      ? cart.items.reduce((sum, item) => sum + item.price * item.quantity, 0)
+      : 0;
+
   return (
     <div className="mx-auto mt-10 flex min-h-[55vh] w-full max-w-2xl items-center justify-center">
       {!cart || cart.items.length === 0 ? (
@@ -52,19 +58,10 @@ const CartPage = async () => {
           ))}
           <div className="flex items-center justify-between text-lg font-semibold">
             <p>Subtotal:</p>
-            <p>
-              {toCurrencyString(
-                cart.items.reduce(
-                  (sum, item) => sum + item.price * item.quantity,
-                  0,
-                ),
-              )}
-            </p>
+            <p>{toCurrencyString(subTotal)}</p>
           </div>
 
-          <Button size="lg" className="w-full">
-            Checkout
-          </Button>
+          <CheckoutButton amount={subTotal} cartItems={cart.items} />
         </div>
       )}
     </div>
