@@ -166,9 +166,13 @@ export const deleteCartItem = async (formData: FormData) => {
   savedCart.items = savedCart.items.filter((item) => item.id !== productID);
 
   if (!user) {
-    (await cookies()).set("cart", JSON.stringify(savedCart));
+    savedCart.items.length === 0
+      ? (await cookies()).delete("cart")
+      : (await cookies()).set("cart", JSON.stringify(savedCart));
   } else {
-    await redis.set(`cart-${user.id}`, savedCart);
+    savedCart.items.length === 0
+      ? await redis.del(`cart-${user.id}`)
+      : await redis.set(`cart-${user.id}`, savedCart);
   }
 
   revalidatePath("/cart");

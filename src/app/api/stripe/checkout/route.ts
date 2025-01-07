@@ -1,6 +1,7 @@
 import { env } from "@/env/server";
 import { getUserSession } from "@/lib/server-utils";
 import stripe from "@/lib/stripe";
+import { CheckoutMetadata } from "@/types/checkout-metadata";
 import { NextRequest, NextResponse } from "next/server";
 
 async function getActiveProducts() {
@@ -18,16 +19,22 @@ export async function POST(request: NextRequest) {
     //Creating Checkout Stripe Items
     const activeProducts = await getActiveProducts();
     let checkoutStripeProducts: any = [];
+    let checkoutMetadata: CheckoutMetadata[] = [];
 
-    for (const product of checkoutProducts) {
-      const stripeProduct = activeProducts?.find(
-        (stripeProduct: any) => stripeProduct?.id === product?.id,
+    for (const checkoutProduct of checkoutProducts) {
+      const stripeProducts = activeProducts?.find(
+        (stripeProduct: any) => stripeProduct?.id === checkoutProduct?.id,
       );
 
-      if (stripeProduct) {
+      if (stripeProducts) {
         checkoutStripeProducts.push({
-          price: stripeProduct?.default_price,
-          quantity: product.quantity,
+          price: stripeProducts?.default_price,
+          quantity: checkoutProduct.quantity,
+        });
+
+        checkoutMetadata.push({
+          id: checkoutProduct.id,
+          quantity: checkoutProduct.quantity,
         });
       }
     }
@@ -37,7 +44,6 @@ export async function POST(request: NextRequest) {
       process.env.NODE_ENV === "production"
         ? env.PROD_BASE_URL
         : env.DEV_BASE_URL;
-    console.log(checkoutStripeProducts);
 
     const session = await stripe.checkout.sessions.create({
       line_items: checkoutStripeProducts,
@@ -46,6 +52,7 @@ export async function POST(request: NextRequest) {
       success_url: `${baseUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${baseUrl}/checkout/cancel`,
       metadata: {
+        products: JSON.stringify(checkoutMetadata),
         userID: user!.id,
       },
     });
@@ -54,7 +61,6 @@ export async function POST(request: NextRequest) {
       url: session?.url,
     });
   } catch (error) {
-    console.log(error);
     return NextResponse.json(error, { status: 500 });
   }
 }

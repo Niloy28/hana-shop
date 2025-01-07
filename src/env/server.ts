@@ -18,6 +18,7 @@ export const env = createEnv({
     UPSTASH_REDIS_REST_URL: z.string().min(1),
     UPSTASH_REDIS_REST_TOKEN: z.string().min(1),
     STRIPE_CLIENT_SECRET: z.string().min(1),
+    STRIPE_SECRET_WEBHOOK_KEY: z.string().min(1),
   },
   experimental__runtimeEnv: {},
 });

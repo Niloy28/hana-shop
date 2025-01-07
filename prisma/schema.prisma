@@ -36,6 +36,19 @@ model Product {
   createdAt     DateTime      @default(now())
 }
 
+model Order {
+  id         String   @id @default(uuid())
+  userId     String
+  name       String
+  email      String
+  productIds String[]
+  quantities Int[]
+  total      Float
+  status     String
+  address    String
+  createdAt  DateTime
+}
+
 model Banner {
   id        String   @id @default(uuid())
   title     String
