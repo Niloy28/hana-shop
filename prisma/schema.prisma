@@ -29,6 +29,7 @@ model Product {
   description   String
   productStatus ProductStatus
   price         Float
+  stripePriceId String        @default("")
   images        String[]
   category      Category
   isFeatured    Boolean       @default(false)
