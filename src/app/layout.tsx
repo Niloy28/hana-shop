@@ -1,4 +1,5 @@
 import { uploadRouter } from "@/app/api/uploadthing/core";
+import Footer from "@/components/Footer";
 import NavBar from "@/components/navbar/NavBar";
 import { dashboardLinks, homePageLinks } from "@/lib/constants";
 import { getUserSession } from "@/lib/server-utils";
@@ -49,6 +50,7 @@ export default async function RootLayout({
           <div className="mx-4 mb-2 mt-12 px-2 sm:mx-12 sm:mb-8 sm:mt-16 sm:px-4">
             <main>{children}</main>
           </div>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
