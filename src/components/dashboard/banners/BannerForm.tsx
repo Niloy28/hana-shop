@@ -20,13 +20,14 @@ import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useActionState, useState } from "react";
+import { useState } from "react";
+import { useFormState } from "react-dom";
 import { ClientUploadedFileData } from "uploadthing/types";
 import FormFieldWrapper from "../products/create/FormFieldWrapper";
 
 const BannerForm = () => {
   const [image, setImage] = useState("");
-  const [latestState, action] = useActionState(createBanner, undefined);
+  const [latestState, action] = useFormState(createBanner, undefined);
   const [form, fields] = useForm({
     lastResult: latestState,
     constraint: getZodConstraint(bannerSchema),

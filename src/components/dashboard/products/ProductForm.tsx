@@ -25,7 +25,8 @@ import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { Category, Product, ProductStatus } from "@prisma/client";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
-import { Suspense, useActionState, useState } from "react";
+import { Suspense, useState } from "react";
+import { useFormState } from "react-dom";
 import { ClientUploadedFileData } from "uploadthing/types";
 
 const ProductForm = ({
@@ -39,7 +40,7 @@ const ProductForm = ({
   ) => Promise<SubmissionResult<string[]> | undefined>;
 }>) => {
   const [images, setImages] = useState<string[]>(product?.images ?? []);
-  const [latestState, action] = useActionState(formAction, undefined);
+  const [latestState, action] = useFormState(formAction, undefined);
   const [form, fields] = useForm({
     defaultValue: {
       name: product?.name ?? "",
