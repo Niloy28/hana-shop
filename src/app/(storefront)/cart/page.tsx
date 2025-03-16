@@ -22,7 +22,7 @@ const CartPage = async () => {
   if (user) {
     cart = await redis.get(`cart-${user.id}`);
   } else {
-    const cartCookie = (await cookies()).get("cart");
+    const cartCookie = cookies().get("cart");
 
     if (cartCookie) {
       cart = JSON.parse(cartCookie.value) as CartData;

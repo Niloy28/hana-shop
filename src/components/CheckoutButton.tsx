@@ -22,7 +22,7 @@ const CheckoutButton = ({
       : env.NEXT_PUBLIC_DEV_BASE_URL;
 
   const checkout = async (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    _event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     try {
       setLoading(true);

@@ -33,7 +33,7 @@ export const addCartItem = async (productID: string) => {
   const user = await getUserSession();
   if (!user) {
     // get existing local cart (if available) and merge new cart
-    const cookieRawCart = (await cookies()).get("cart");
+    const cookieRawCart = cookies().get("cart");
     if (cookieRawCart) {
       savedCart = JSON.parse(cookieRawCart.value) as CartData;
       let itemFound = false;
@@ -67,7 +67,7 @@ export const addCartItem = async (productID: string) => {
       });
     }
 
-    (await cookies()).set("cart", JSON.stringify(myCart));
+    cookies().set("cart", JSON.stringify(myCart));
   } else {
     const cart: CartData | null = await redis.get(`cart-${user.id}`);
 
@@ -125,7 +125,7 @@ export const changeCartItemCount = async (
 
   if (!user) {
     // update local cart
-    const cookieRawCart = (await cookies()).get("cart");
+    const cookieRawCart = cookies().get("cart");
     savedCart = JSON.parse(cookieRawCart!.value) as CartData;
   } else {
     // update redis cart
@@ -141,7 +141,7 @@ export const changeCartItemCount = async (
   });
 
   if (!user) {
-    (await cookies()).set("cart", JSON.stringify(savedCart));
+    cookies().set("cart", JSON.stringify(savedCart));
   } else {
     await redis.set(`cart-${user.id}`, savedCart);
   }
@@ -156,7 +156,7 @@ export const deleteCartItem = async (formData: FormData) => {
 
   if (!user) {
     // update local cart
-    const cookieRawCart = (await cookies()).get("cart");
+    const cookieRawCart = cookies().get("cart");
     savedCart = JSON.parse(cookieRawCart!.value) as CartData;
   } else {
     // update redis cart
@@ -167,8 +167,8 @@ export const deleteCartItem = async (formData: FormData) => {
 
   if (!user) {
     savedCart.items.length === 0
-      ? (await cookies()).delete("cart")
-      : (await cookies()).set("cart", JSON.stringify(savedCart));
+      ? cookies().delete("cart")
+      : cookies().set("cart", JSON.stringify(savedCart));
   } else {
     savedCart.items.length === 0
       ? await redis.del(`cart-${user.id}`)

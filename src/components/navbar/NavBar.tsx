@@ -29,7 +29,7 @@ const NavBar = async ({
       cartTotal = cart.items.reduce((sum, item) => sum + item.quantity, 0);
     }
   } else {
-    const cartCookie = (await cookies()).get("cart");
+    const cartCookie = cookies().get("cart");
 
     if (cartCookie) {
       cartTotal = (JSON.parse(cartCookie.value) as CartData).items.reduce(

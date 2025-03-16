@@ -10,7 +10,7 @@ import Stripe from "stripe";
 export async function POST(request: NextRequest) {
   const body = await request.text();
   const endpointSecret = env.STRIPE_SECRET_WEBHOOK_KEY;
-  const sig = (await headers()).get("stripe-signature") as string;
+  const sig = headers().get("stripe-signature") as string;
   let event: Stripe.Event;
 
   try {
@@ -54,10 +54,10 @@ export async function POST(request: NextRequest) {
     });
 
     // save order ID as a cookie
-    (await cookies()).set("orderID", order.id);
+    cookies().set("orderID", order.id);
 
     // clear both local (if present) and remote cart data for user
-    (await cookies()).delete("cart");
+    cookies().delete("cart");
     await redis.del(`cart-${userID}`);
 
     return NextResponse.json({ message: "Order created", status: 200 });
