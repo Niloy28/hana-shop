@@ -11,7 +11,7 @@ const FeaturedProducts = async () => {
       isFeatured: true,
       productStatus: "Active",
     },
-    take: 4,
+    take: 9,
   });
 
   return (
