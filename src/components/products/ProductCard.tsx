@@ -31,7 +31,7 @@ const ProductCard = ({ product }: Readonly<{ product: Product }>) => {
                   alt={product.name}
                   width={400}
                   height={250}
-                  className="m-auto h-[250px] w-full rounded-lg object-fill"
+                  className="m-auto h-[250px] w-full rounded-lg object-contain"
                 />
               </CarouselItem>
             ))}
@@ -61,7 +61,7 @@ const ProductCard = ({ product }: Readonly<{ product: Product }>) => {
             </div>
           </Link>
 
-          <form className="mb-4 pb-1" action={addProductToCart}>
+          <form className="mb-2 pb-8 pt-2" action={addProductToCart}>
             <AddToCartButton disabled={product.productStatus !== "Active"} />
           </form>
         </div>
