@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import Bouquet from "@/../public/bouquet.png";
-import Mixed from "@/../public/mixed.png";
+import Mixed from "@/../public/mixed.jpeg";
 import Single from "@/../public/single.png";
 import CategoryView from "./CategoryView";
 
@@ -22,7 +22,7 @@ const CategorySelection = () => {
           Single Flowers
         </CategoryView>
         <CategoryView category="mixed" image={Mixed}>
-          Mixed Flowers
+          Mixed Items
         </CategoryView>
         <CategoryView category="bouquet" image={Bouquet}>
           Bouquets
