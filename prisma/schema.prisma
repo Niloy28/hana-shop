@@ -63,6 +63,13 @@ model Inquiry {
   inquiry String
 }
 
+model Post {
+  id        String   @id @default(uuid())
+  title     String
+  body      String
+  createdAt DateTime @default(now())
+}
+
 enum ProductStatus {
   Active
   Out_Of_Stock
