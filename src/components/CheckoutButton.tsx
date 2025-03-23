@@ -11,7 +11,7 @@ const CheckoutButton = ({
   amount,
   cartItems,
   ...props
-}: Readonly<{ amount: number; cartItems: CartItemData[] }> &
+}: Readonly<{ amount: string; cartItems: CartItemData[] }> &
   ComponentProps<typeof Button>) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -57,7 +57,7 @@ const CheckoutButton = ({
       {loading ? (
         <Loader2 className="group w-full animate-spin" />
       ) : (
-        `Checkout $${amount}`
+        `Checkout ${amount}`
       )}
     </Button>
   );

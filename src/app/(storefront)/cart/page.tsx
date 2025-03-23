@@ -61,7 +61,10 @@ const CartPage = async () => {
             <p>{toCurrencyString(subTotal)}</p>
           </div>
 
-          <CheckoutButton amount={subTotal} cartItems={cart.items} />
+          <CheckoutButton
+            amount={toCurrencyString(subTotal)}
+            cartItems={cart.items}
+          />
         </div>
       )}
     </div>
