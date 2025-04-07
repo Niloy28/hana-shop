@@ -89,11 +89,3 @@ This is a e-commerce site built with React and Next.js and styled with TailwindC
    ```bash
    pnpm build
    ```
-
-## Recommended IDE Setup 📝
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration 🔧
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
