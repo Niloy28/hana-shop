@@ -1,4 +1,5 @@
 # Hana Shop (花屋) 🌸
+![banner](https://github.com/user-attachments/assets/ba4e545b-8c61-4779-8e42-2a458c5d9ac7)
 
 This is a e-commerce site built with React and Next.js and styled with TailwindCSS.
 
@@ -29,6 +30,38 @@ This is a e-commerce site built with React and Next.js and styled with TailwindC
 - [Stripe API](https://docs.stripe.com/api?lang=node) to handle product management and checkout
 
 ## Screenshots 📷
+### Home
+![Home](https://github.com/user-attachments/assets/770f2ab8-dc26-447f-b491-c9e7360bdd2f)
+
+### Products
+![Products](https://github.com/user-attachments/assets/79599da3-2121-4d23-ad0d-8308b844fc2e)
+
+### Product Details
+![Product Details](https://github.com/user-attachments/assets/5bd0b8d2-ca63-4231-ac1e-82db86956944)
+
+### Cart
+![Cart](https://github.com/user-attachments/assets/190c6289-e15a-4fe3-a0dc-d00daaca955c)
+
+### Stripe Checkout
+![Stripe](https://github.com/user-attachments/assets/c6cc6224-317a-4273-8c9a-747853a6eebb)
+
+### Order Successful
+![Order Success](https://github.com/user-attachments/assets/776e9daf-9df1-4c90-8719-10fe7c47e6aa)
+
+### Order Cancelled
+![Order Cancel](https://github.com/user-attachments/assets/da9ececa-de2c-4064-938e-292c52e766a3)
+
+### Blog
+![Blog](https://github.com/user-attachments/assets/89c52611-1c7d-4804-a521-6a063c7a5ff5)
+
+### Admin Dashboard
+![Dashboard](https://github.com/user-attachments/assets/0e566262-d74b-4a9d-9b35-ade78341d2c3)
+
+### Admin Product Management Form
+![Product Form](https://github.com/user-attachments/assets/04392603-43fc-42f8-9ada-6afae706f84f)
+
+### Admin Banner Management Form
+![Banner Form](https://github.com/user-attachments/assets/bc5a0eac-60ea-484d-b032-2a3163691b3d)
 
 ## Installation 📥
 
